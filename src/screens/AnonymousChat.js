@@ -317,7 +317,7 @@ class AnonymousChat extends React.Component{
 
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     this.on(message => {
-      let bytes  = CryptoJS.AES.decrypt(message.text, 'secret key 123');
+      let bytes  = CryptoJS.AES.decrypt(message.text, 'U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=');
       let originalText = bytes.toString(CryptoJS.enc.Utf8);
       message.text=originalText;
       this.setState(previousState => ({
@@ -381,7 +381,7 @@ get timestamp() {
 send = messages => {
   for (let i = 0; i < messages.length; i++) {
     const { text, user } = messages[i];
-    let ciphertext = CryptoJS.AES.encrypt(text , 'secret key 123').toString();
+    let ciphertext = CryptoJS.AES.encrypt(text , 'U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=').toString();
     console.log("cipher text");
     text=ciphertext
     const message = {

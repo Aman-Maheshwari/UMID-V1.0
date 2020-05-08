@@ -1,5 +1,5 @@
 // import * as React from 'react';
-// import { StyleSheet, Text, View, Button, Alert, TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView,Linking, BackHandler, ActivityIndicator } from 'react-native';
+// import { StyleSheet, Text, View, Button, Alert,Keyboard, TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView,Linking, BackHandler, ActivityIndicator } from 'react-native';
 // import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 // import Geolocation from '@react-native-community/geolocation';
 // import SlidingUpPanel from 'rn-sliding-up-panel'
@@ -62,8 +62,28 @@
 //       this.position = null;
 //       this.longitude1 = null;
 //       this.latitude1 = null;
+
+
+
 //   }
 
+//   // Keyboard Eventlistners.
+//   componentWillMount () {
+//     this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow.bind(this));
+//   }
+//   componentWillUnmount () {
+//     this.keyboardDidShowListener.remove();
+//   }
+//   _keyboardDidShow () {
+//     console.log("keyboard up")
+//     this.handdlePress1()
+//     // Animated.spring(this.mode, {
+//     //   toValue: 0,
+//     //   duration: 50,
+//     //   useNativeDriver: false
+//     // }).start();
+//     // console.log(this.latitude1)
+//   }
 
 //   callForInitialFetch = () => {
 //     RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
@@ -127,6 +147,8 @@
 //           readdata.then((data) => {
 //             // console.log("data format= ", data);
 //             var marker_to_display = []
+//             var food_marker = []
+//             var anonymous_marker = []
 //             for (var i = 0; i < data.length; i++) {
 //               // console.log("type of object  = ", this.state.latitude, this.state.longitude, data[i].latitude, data[i].longitude)
 //               var dist = this.distance(this.state.latitude, this.state.longitude, data[i].latitude, data[i].longitude)
@@ -137,12 +159,20 @@
 //                 this.setState({
 //                   found: true,
 //                 })
+//                 if(data[i].category == "Emotional Support"){
+//                   anonymous_marker.push(data[i])
+//                 }
+//                 else(
+//                   food_marker.push(data[i])
+//                 )
 //                 marker_to_display.push(data[i])
 //               }
 //             }
 //             // console.log("marker_to_display", marker_to_display);
 //             //markers and near by markers both hold same element
 //             this.setState({
+//               food_marker: food_marker,
+//               anonymous_marker: anonymous_marker,
 //               markers: marker_to_display,
 //               near_by_marker: marker_to_display,
 //               all_markers: data,
@@ -453,6 +483,8 @@
 //     })
 //   }
 
+
+
 //   ListViewItemSeparator = () => {
 //     //Item sparator view
 //     return (
@@ -527,6 +559,9 @@
 //                       {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
 //                         Category: {item.category}
 //                       </Text> */}
+//                       {this.props.phonenumberuser == item.phonenumber ? 
+//                       <Image source={require('../assets/chatIconGrey.png')} style={{marginRight:wp("4%")}}/> 
+//                       :
 //                       <TouchableOpacity onPress={() => {
 //                       if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                         this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
@@ -537,6 +572,7 @@
 //                     }}>
 //                       <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
 //                       </TouchableOpacity>
+//           }
 //                       <Image source={require('../assets/ios-call-grey.png')} style={{marginRight:wp("4%")}}/>
 
 //                       {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
@@ -603,7 +639,14 @@
 //                     </View>
                         
 //                         <View style={{ flexDirection: 'row',alignItems:'center' }}>
-//                         <TouchableOpacity onPress={() => {
+//                         {this.props.phonenumberuser == item.phonenumber ? 
+//                         <View style={{ flexDirection: 'row',alignItems:'center' }}>
+//                       <Image source={require('../assets/chatIconGrey.png')} style={{marginRight:wp("4%")}}/> 
+//                       <Image source={require('../assets/ios-call-grey.png')} style={{marginRight:wp("4%")}}/>
+//                       </View>
+//                       :
+//                       <View style={{ flexDirection: 'row',alignItems:'center' }}>
+//                       <TouchableOpacity onPress={() => {
 //                       if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                         this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
 //                       }
@@ -611,13 +654,15 @@
 //                         this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue",timestamp:item.timestamp })
 //                       }
 //                     }}>
-//                         <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
+//                       <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
 //                       </TouchableOpacity>
 //                       <TouchableOpacity onPress={() => {
-//                                         Linking.openURL(`tel:${item.phonenumber}`)
-//                                     }}>
-//                                         <Image source={require('../assets/ios-call.png')} style={{marginRight:wp("4%")}}/>
-//                                     </TouchableOpacity>
+//                         Linking.openURL(`tel:${item.phonenumber}`)
+//                     }}>
+//                         <Image source={require('../assets/ios-call.png')} style={{marginRight:wp("4%")}}/>
+//                     </TouchableOpacity>
+//                     </View>
+//           }
 
 //                       {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
 //                       {
@@ -684,16 +729,20 @@
 //                       {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
 //                         Category: {item.category}
 //                       </Text> */}
-//                     <TouchableOpacity onPress={() => {
+//                     {this.props.phonenumberuser == item.phonenumber ? 
+//                       <Image source={require('../assets/chatIconGrey.png')} style={{marginRight:wp("4%")}}/> 
+//                       :
+//                       <TouchableOpacity onPress={() => {
 //                       if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                         this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
 //                       }
 //                       else {
-//                         this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue" ,timestamp:item.timestamp})
+//                         this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue",timestamp:item.timestamp })
 //                       }
 //                     }}>
 //                       <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
-//                       </TouchableOpacity>                      
+//                       </TouchableOpacity>
+//           }                    
 //                       <Image source={require('../assets/ios-call-grey.png')} style={{marginRight:wp("4%")}}/>
 
 //                       {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
@@ -764,7 +813,14 @@
 //                       </Text>
 //                     </View>
 //                   <View style={{ flexDirection: 'row',alignItems:'center'}}>
-//                   <TouchableOpacity onPress={() => {
+//                   {this.props.phonenumberuser == item.phonenumber ? 
+//                         <View style={{ flexDirection: 'row',alignItems:'center' }}>
+//                       <Image source={require('../assets/chatIconGrey.png')} style={{marginRight:wp("4%")}}/> 
+//                       <Image source={require('../assets/ios-call-grey.png')} style={{marginRight:wp("4%")}}/>
+//                       </View>
+//                       :
+//                       <View style={{ flexDirection: 'row',alignItems:'center' }}>
+//                       <TouchableOpacity onPress={() => {
 //                       if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                         this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
 //                       }
@@ -772,13 +828,15 @@
 //                         this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue",timestamp:item.timestamp })
 //                       }
 //                     }}>
-//                         <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
+//                       <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
 //                       </TouchableOpacity>
 //                       <TouchableOpacity onPress={() => {
-//                                         Linking.openURL(`tel:${item.phonenumber}`)
-//                                     }}>
-//                                         <Image source={require('../assets/ios-call.png')} style={{marginRight:wp("4%")}}/>
-//                                     </TouchableOpacity>
+//                         Linking.openURL(`tel:${item.phonenumber}`)
+//                     }}>
+//                         <Image source={require('../assets/ios-call.png')} style={{marginRight:wp("4%")}}/>
+//                     </TouchableOpacity>
+//                     </View>
+//           }
 
 //                       {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
 //                       {
@@ -846,6 +904,9 @@
 //                       {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
 //                         Category: {item.category}
 //                       </Text> */}
+//                      {this.props.phonenumberuser == item.phonenumber ? 
+//                       <Image source={require('../assets/chatIconGrey.png')} style={{marginRight:wp("4%")}}/> 
+//                       :
 //                       <TouchableOpacity onPress={() => {
 //                       if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                         this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
@@ -856,6 +917,7 @@
 //                     }}>
 //                       <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
 //                       </TouchableOpacity>
+//           }
 //                       <Image source={require('../assets/ios-call-grey.png')} style={{marginRight:wp("4%")}}/>
 
 //                       {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
@@ -918,21 +980,30 @@
 //                       </Text>
 //                     </View>
 //                   <View style={{ flexDirection: 'row',alignItems:'center' }}>
-//                   <TouchableOpacity onPress={() => {
+//                   {this.props.phonenumberuser == item.phonenumber ? 
+//                         <View style={{ flexDirection: 'row',alignItems:'center' }}>
+//                       <Image source={require('../assets/chatIconGrey.png')} style={{marginRight:wp("4%")}}/> 
+//                       <Image source={require('../assets/ios-call-grey.png')} style={{marginRight:wp("4%")}}/>
+//                       </View>
+//                       :
+//                       <View style={{ flexDirection: 'row',alignItems:'center' }}>
+//                       <TouchableOpacity onPress={() => {
 //                       if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                         this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
 //                       }
 //                       else {
-//                         this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue" ,timestamp:item.timestamp})
+//                         this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue",timestamp:item.timestamp })
 //                       }
 //                     }}>
-//                         <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
+//                       <Image source={require('../assets/chatIcon.png')} style={{marginRight:wp("4%")}}/>
 //                       </TouchableOpacity>
 //                       <TouchableOpacity onPress={() => {
-//                                         Linking.openURL(`tel:${item.phonenumber}`)
-//                                     }}>
-//                                         <Image source={require('../assets/ios-call.png')} style={{marginRight:wp("4%")}}/>
-//                                     </TouchableOpacity>
+//                         Linking.openURL(`tel:${item.phonenumber}`)
+//                     }}>
+//                         <Image source={require('../assets/ios-call.png')} style={{marginRight:wp("4%")}}/>
+//                     </TouchableOpacity>
+//                     </View>
+//           }
 
 //                       {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
 //                       {
@@ -1094,6 +1165,12 @@
 //   }
 //   render() {
 //     // console.log("Inside render", this.props.phonenumberuser)
+//     // Adding Keyboard Eventlistner
+
+//     const _keyboardDidShow = () => {
+//      console.log("keyboard up")
+//     };
+
 //     console.log("Aditya here", this.props.personData.name)
 //     console.log("markerssss", this.state.markers);
 
@@ -1105,6 +1182,7 @@
 //       })
 //       console.log(this.state.markers)
 //       return (
+//         <View style={{flex:1}}>
 //         <KeyboardAvoidingView style={{ flex: 1 }}>
 //             {/* Location Icon permanent */}
 //             <Icon name="location-on" size={30} style={{zIndex:10,top:hp('40%'), left:wp('46%'),position:'absolute'}} color="#e85433" />
@@ -1198,9 +1276,36 @@
 //             }}
 //           >
 //             {console.log(this.state.markers)}
-//              {this.state.markers.map((marker) =>
+//             {this.state.food_marker.map((marker) =>
 //               <Marker
-//                 pinColor="blue"
+//                 pinColor="green"
+//                 title={marker.name}
+//                 key={marker.phonenumber}
+//                 coordinate={{
+//                   latitude: marker.latitude,
+//                   longitude: marker.longitude,
+//                 }}
+//                 onPress={() => {
+//                   if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+//                     this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+//                   }
+//                   // YASH UPDATED WHOLE ELSE, TAKE IT
+//                   else {
+//                     // this.props.navigation.navigate('Chats', { name: marker.name, phonenumber: marker.phonenumber, description: marker.description, putcolor: true })
+//                     this.setState({
+//                       isMarkerClicked : true,
+//                       markerClickedid : marker.phonenumber
+//                     })
+//                     console.log('MARKER Clicked' ,this.state.markerClickedid)
+//                     this.handdlePress()
+//                   }
+//                 }}
+//               />
+//             )}
+
+//              {this.state.anonymous_marker.map((marker) =>
+//               <Marker
+//                 pinColor="yellow"
 //                 title={marker.name}
 //                 key={marker.phonenumber}
 //                 coordinate={{
@@ -1231,6 +1336,7 @@
 //             // draggable
 //              ><Image source={require("../assets/locationpin.png")} style={{height:hp("2%"),width:wp("4%")}}/></Marker>}
 //           </MapView>
+//           </KeyboardAvoidingView>
 //           {/* <Animated.View style={{position:'absolute',bottom:shift,width:"100%"}}>
 //                 <GestureRecognizer onSwipeUp={this.handdlePress}
 //                 onSwipeDown={this.handdlePress1} style={{flex:1,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
@@ -1264,7 +1370,8 @@
 //               </View>
 //             </GestureRecognizer>
 //           </Animated.View>
-//         </KeyboardAvoidingView>
+        
+//         </View>
 //       );
 //     }
 //     else if (this.state.latitude != null && this.state.markers == null) {
@@ -1274,6 +1381,7 @@
 //       })
 //       return (
 //         <View style={{ flex: 1 }}>
+//         <Icon name="location-on" size={30} style={{zIndex:10,top:hp('40%'), left:wp('46%'),position:'absolute'}} color="#e85433" />
 //           <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
 //             <TouchableOpacity onPress={
 //               () => {
@@ -1708,9 +1816,8 @@
 
 
 
-
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, Alert, TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView,Linking, BackHandler, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert,Keyboard, TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView,Linking, BackHandler, ActivityIndicator } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import SlidingUpPanel from 'rn-sliding-up-panel'
@@ -1773,8 +1880,28 @@ class MapShow extends React.Component {
       this.position = null;
       this.longitude1 = null;
       this.latitude1 = null;
+
+
+
   }
 
+  // Keyboard Eventlistners.
+  componentWillMount () {
+    this.keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', this._keyboardDidShow.bind(this));
+  }
+  componentWillUnmount () {
+    this.keyboardDidShowListener.remove();
+  }
+  _keyboardDidShow () {
+    console.log("keyboard up")
+    this.handdlePress1()
+    // Animated.spring(this.mode, {
+    //   toValue: 0,
+    //   duration: 50,
+    //   useNativeDriver: false
+    // }).start();
+    // console.log(this.latitude1)
+  }
 
   callForInitialFetch = () => {
     RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
@@ -1838,6 +1965,8 @@ class MapShow extends React.Component {
           readdata.then((data) => {
             // console.log("data format= ", data);
             var marker_to_display = []
+            var food_marker = []
+            var anonymous_marker = []
             for (var i = 0; i < data.length; i++) {
               // console.log("type of object  = ", this.state.latitude, this.state.longitude, data[i].latitude, data[i].longitude)
               var dist = this.distance(this.state.latitude, this.state.longitude, data[i].latitude, data[i].longitude)
@@ -1848,12 +1977,20 @@ class MapShow extends React.Component {
                 this.setState({
                   found: true,
                 })
+                if(data[i].category == "Emotional Support"){
+                  anonymous_marker.push(data[i])
+                }
+                else(
+                  food_marker.push(data[i])
+                )
                 marker_to_display.push(data[i])
               }
             }
             // console.log("marker_to_display", marker_to_display);
             //markers and near by markers both hold same element
             this.setState({
+              food_marker: food_marker,
+              anonymous_marker: anonymous_marker,
               markers: marker_to_display,
               near_by_marker: marker_to_display,
               all_markers: data,
@@ -1991,63 +2128,69 @@ class MapShow extends React.Component {
 // }
 
 
-// //For deleting anonymous alert and chats
-//   deletekeys = (item) => {
-//     console.log("inside del function\n");
+//For deleting anonymous alert and chats
+  deletekeys = (item) => {
+    console.log("inside del function\n");
+    // console.log(item)
+    if(item.category == "Emotional Support"){
+    //   firebase.database().ref("ChatsUnderYou/Anonymous/").on("value", snapshot => {
+    //     console.log("Object.keys(snapshot.val())",Object.keys(snapshot.val()))
+    //     var arr = Object.keys(snapshot.val());
+    //     for(var i=0;i<arr.length;i++){
+    //       firebase.database().ref("ChatsUnderYou/Anonymous/"+arr[i]+"/"+item.phonenumber+","+item.timestamp).remove()
+    //     }
+    //   })
+    //   firebase.database().ref("OneToOneAnonymous/"+item.phonenumber+","++","+item.timestamp).remove()
 
-//     var prom = new Promise((resolve, reject) => {
-//       firebase.database().ref("sos/" + this.props.phonenumberuser+"/").on("value", snapshot => {
-//         console.log("val= ",snapshot.val());
-//         if (snapshot.val())
-//           resolve(snapshot.val());
-//         else
-//           reject("no data found");
-//       })
-//     })
-//     prom.then((data) => {
-//       var search=[];
-//       // console.log("inside . thenm");
-//       var prom1= new Promise((resolve,reject)=>{
-//         firebase.database().ref("ChatsUnderYou/Anonymous/"+this.props.phonenumberuser+"/").on("value", snapshot => {
-//           snapshot.forEach((element) => {
-//             // console.log("element=", element.val());
-//             if (element.val().description === data.description && element.val().name === data.name) {
-//               search.push(element.val())
-//               console.log("element=", element.val());
-//             }
-//           })
-//           if(search)
-//             resolve(search)
-//           else
-//             reject("no data")
-//         })
-//       })//end of prom1
+    var search=[];
+      console.log("inside . thenm",item);
+      var prom8= new Promise((resolve,reject)=>{
+        firebase.database().ref("ChatsUnderYou/Anonymous/"+this.props.phonenumberuser+"/").on("value", snapshot => {
+          console.log("heyu")
+          snapshot.forEach((element) => {
+            console.log("element=", element.val());
+            if (element.val().alerttimestamp == item.timestamp) {
+              search.push(element.val())
+              console.log("element=", element.val());
+            }
+          })
+          if(search)
+            resolve(search)
+          else
+            reject("no data")
+        })
+      })//end of prom1
 
-//       prom1.then((search)=>{
-//           search.forEach((ele)=>{
-//             //To remove anonymous chats
-//             if(this.props.phonenumberuser > ele.phonenumber){
-//               var x=this.props.phonenumberuser+','+ele.phonenumber;
-//             }else{
-//               var x=ele.phonenumber+','+this.props.phonenumberuser;
-//             }
-//             firebase.database().ref("OneToOneAnonymous/"+x).remove();
-//             firebase.database().ref("ChatsUnderYou/Anonymous/"+this.props.phonenumberuser+"/"+ele.phonenumber).remove();
-//           })
-//           console.log("search = ",search);
+      prom8.then((search)=>{
+        console.log(search)
+          search.forEach((ele)=>{
+            console.log(ele,"ele")
+            //To remove anonymous chats
+            if(this.props.phonenumberuser > ele.phonenumber){
+              var x=this.props.phonenumberuser+','+ele.phonenumber;
+            }else{
+              var x=ele.phonenumber+','+this.props.phonenumberuser;
+            }
+            firebase.database().ref("OneToOneAnonymous/"+x+','+item.timestamp).remove();
+            firebase.database().ref("ChatsUnderYou/Anonymous/"+this.props.phonenumberuser+"/"+ele.phonenumber+','+item.timestamp).remove();
+          })
+          console.log("search = ",search);
           
-//           search.forEach((ele)=>{
-//             // if(this.props.phonenumberuser > ele.phonenumber){
-//             //   var x=this.props.phonenumberuser+','+ele.phonenumber;
-//             // }else{
-//             //   var x=ele.phonenumber+','+this.props.phonenumberuser;
-//             // }
-//             // firebase.database().ref("OneToOneAnonymous/"+x).remove();
-//             firebase.database().ref("ChatsUnderYou/Anonymous/"+ele.phonenumber+"/"+this.props.phonenumberuser).remove();
-//           }) 
-//       })
-//     })
-//   }
+          search.forEach((ele)=>{
+            firebase.database().ref("ChatsUnderYou/Anonymous/"+ele.phonenumber+"/"+this.props.phonenumberuser+','+item.timestamp).remove();
+          }) 
+      })
+    }else{
+         firebase.database().ref("ChatsUnderYou/alerts/").on("value", snapshot => {
+      console.log("Object.keys(snapshot.val())",Object.keys(snapshot.val()))
+      var arr = Object.keys(snapshot.val());
+      for(var i=0;i<arr.length;i++){
+        firebase.database().ref("ChatsUnderYou/alerts/"+arr[i]+"/"+item.phonenumber+","+item.timestamp).remove()
+      }
+    })
+    firebase.database().ref("chatroom/"+item.phonenumber+","+item.timestamp).remove()
+  }
+  }
 
   componentWillUnmount() {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
@@ -2164,6 +2307,8 @@ class MapShow extends React.Component {
     })
   }
 
+
+
   ListViewItemSeparator = () => {
     //Item sparator view
     return (
@@ -2271,7 +2416,7 @@ class MapShow extends React.Component {
                                     style: "cancel"
                                   },
                                   { text: "Delete", onPress: () => {
-                                    // this.deletekeys(item);
+                                    this.deletekeys(item);
                                     firebase.database().ref('sosDeleted/' +item.phonenumber+","+item.timestamp+'/').set({
                                       name:item.name,
                                       phonenumber: item.phonenumber,
@@ -2358,7 +2503,7 @@ class MapShow extends React.Component {
                                     style: "cancel"
                                   },
                                   { text: "Delete", onPress: () => {
-                                    // this.deletekeys(item);
+                                    this.deletekeys(item);
                                     firebase.database().ref('sosDeleted/' +item.phonenumber+","+item.timestamp+'/').set({
                                       name:item.name,
                                       phonenumber: item.phonenumber,
@@ -2441,7 +2586,7 @@ class MapShow extends React.Component {
                                   },
                                   { text: "Delete", onPress: () => {
                                    
-                                    // this.deletekeys(item);
+                                    this.deletekeys(item);
 
                                     firebase.database().ref('sosDeleted/' +item.phonenumber+","+item.timestamp+'/').set({
                                       name:item.name,
@@ -2532,7 +2677,7 @@ class MapShow extends React.Component {
                                     style: "cancel"
                                   },
                                   { text: "Delete", onPress: () => {
-                                    // this.deletekeys(item);
+                                    this.deletekeys(item);
                                     firebase.database().ref('sosDeleted/' +item.phonenumber+","+item.timestamp+'/').set({
                                       name:item.name,
                                       phonenumber: item.phonenumber,
@@ -2615,7 +2760,7 @@ class MapShow extends React.Component {
                                     style: "cancel"
                                   },
                                   { text: "Delete", onPress: () => {
-                                    // this.deletekeys(item);
+                                    this.deletekeys(item);
                                     firebase.database().ref('sosDeleted/' +item.phonenumber+","+item.timestamp+'/').set({
                                       name:item.name,
                                       phonenumber: item.phonenumber,
@@ -2699,7 +2844,7 @@ class MapShow extends React.Component {
                                     style: "cancel"
                                   },
                                   { text: "Delete", onPress: () => {
-                                    // this.deletekeys(item);
+                                    this.deletekeys(item);
                                     firebase.database().ref('sosDeleted/' +item.phonenumber+","+item.timestamp+'/').set({
                                       name:item.name,
                                       phonenumber: item.phonenumber,
@@ -2844,6 +2989,12 @@ class MapShow extends React.Component {
   }
   render() {
     // console.log("Inside render", this.props.phonenumberuser)
+    // Adding Keyboard Eventlistner
+
+    const _keyboardDidShow = () => {
+     console.log("keyboard up")
+    };
+
     console.log("Aditya here", this.props.personData.name)
     console.log("markerssss", this.state.markers);
 
@@ -2855,6 +3006,7 @@ class MapShow extends React.Component {
       })
       console.log(this.state.markers)
       return (
+        <View style={{flex:1}}>
         <KeyboardAvoidingView style={{ flex: 1 }}>
             {/* Location Icon permanent */}
             <Icon name="location-on" size={30} style={{zIndex:10,top:hp('40%'), left:wp('46%'),position:'absolute'}} color="#e85433" />
@@ -2948,9 +3100,36 @@ class MapShow extends React.Component {
             }}
           >
             {console.log(this.state.markers)}
-             {this.state.markers.map((marker) =>
+            {this.state.food_marker.map((marker) =>
               <Marker
-                pinColor="blue"
+                pinColor="green"
+                title={marker.name}
+                key={marker.phonenumber}
+                coordinate={{
+                  latitude: marker.latitude,
+                  longitude: marker.longitude,
+                }}
+                onPress={() => {
+                  if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                    this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+                  }
+                  // YASH UPDATED WHOLE ELSE, TAKE IT
+                  else {
+                    // this.props.navigation.navigate('Chats', { name: marker.name, phonenumber: marker.phonenumber, description: marker.description, putcolor: true })
+                    this.setState({
+                      isMarkerClicked : true,
+                      markerClickedid : marker.phonenumber
+                    })
+                    console.log('MARKER Clicked' ,this.state.markerClickedid)
+                    this.handdlePress()
+                  }
+                }}
+              />
+            )}
+
+             {this.state.anonymous_marker.map((marker) =>
+              <Marker
+                pinColor="yellow"
                 title={marker.name}
                 key={marker.phonenumber}
                 coordinate={{
@@ -2981,6 +3160,7 @@ class MapShow extends React.Component {
             // draggable
              ><Image source={require("../assets/locationpin.png")} style={{height:hp("2%"),width:wp("4%")}}/></Marker>}
           </MapView>
+          </KeyboardAvoidingView>
           {/* <Animated.View style={{position:'absolute',bottom:shift,width:"100%"}}>
                 <GestureRecognizer onSwipeUp={this.handdlePress}
                 onSwipeDown={this.handdlePress1} style={{flex:1,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
@@ -3014,7 +3194,8 @@ class MapShow extends React.Component {
               </View>
             </GestureRecognizer>
           </Animated.View>
-        </KeyboardAvoidingView>
+        
+        </View>
       );
     }
     else if (this.state.latitude != null && this.state.markers == null) {
@@ -3024,6 +3205,7 @@ class MapShow extends React.Component {
       })
       return (
         <View style={{ flex: 1 }}>
+        <Icon name="location-on" size={30} style={{zIndex:10,top:hp('40%'), left:wp('46%'),position:'absolute'}} color="#e85433" />
           <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
             <TouchableOpacity onPress={
               () => {
