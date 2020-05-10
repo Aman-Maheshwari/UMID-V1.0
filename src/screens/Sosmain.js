@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Text, View, Image, TextInput, TouchableOpacity, Modal, StyleSheet,ToastAndroid,ScrollView, } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen'
 import * as firebase from 'firebase'
+import { connect } from 'react-redux';
 
-
-export default class Sos extends React.Component{
+class Sos extends React.Component{
     state={
         name : '',
         phonenumber:'',
@@ -118,8 +118,10 @@ export default class Sos extends React.Component{
                     <TextInput
                       style={{height:hp("6%"),width:hp("60%"),fontSize: wp('4%')}}
                       keyboardType="name-phone-pad"
-                      value = {this.state.phonenumber}
-                      onChangeText={(text) => {this.setState({phonenumber: text})}}
+                      // value = {this.state.phonenumber}
+                      value={this.props.phonenumberuser}
+                      editable={false}
+                      // onChangeText={(text) => {this.setState({phonenumber: text})}}
                     />
                     </View>
                     <Text style={{fontSize:wp('4.1%'),marginBottom:10}}>Category</Text>
@@ -210,8 +212,9 @@ export default class Sos extends React.Component{
                     <TextInput
                       style={{height:hp("6%"),fontSize:wp('4%'),width:hp("60%")}}
                       keyboardType="name-phone-pad"
-                      value = {this.state.phonenumber}
-                      onChangeText={(text) => {this.setState({phonenumber: text})}}
+                      value={this.props.phonenumberuser}
+                      editable={false}
+                      // onChangeText={(text) => {this.setState({phonenumber: text})}}
                     />
                     </View>
                     <Text style={{fontSize:wp('4.1%'),marginBottom:10}}>Category</Text>
@@ -300,8 +303,9 @@ export default class Sos extends React.Component{
                 <TextInput
                   style={{height:hp("6%"),fontSize:wp('4%'),width:hp("60%")}}
                   keyboardType="name-phone-pad"
-                  value = {this.state.phonenumber}
-                  onChangeText={(text) => {this.setState({phonenumber: text})}}
+                  value={this.props.phonenumberuser}
+                  editable={false}
+                  // onChangeText={(text) => {this.setState({phonenumber: text})}}
                 />
                 </View>
                 <Text style={{fontSize:wp('4.1%'),marginBottom:10}}>Category</Text>
@@ -401,8 +405,9 @@ export default class Sos extends React.Component{
                 <TextInput
                   style={{height:hp("6%"),fontSize:wp('4%'),width:hp("60%")}}
                   keyboardType="name-phone-pad"
-                  value = {this.state.phonenumber}
-                  onChangeText={(text) => {this.setState({phonenumber: text})}}
+                  value={this.props.phonenumberuser}
+                  editable={false}
+                  // onChangeText={(text) => {this.setState({phonenumber: text})}}
                 />
                 </View>
                 <Text style={{fontSize:wp('4.1%'),marginBottom:10}}>Category</Text>
@@ -467,6 +472,18 @@ export default class Sos extends React.Component{
 
     }
 }
+const mapStateToProps = (state) => {
+  // console.log(state)
+  return {
+    upload_status: state.textUpload,
+    nameuser: state.nameuser,
+    phonenumberuser: state.phonenumberuser,
+    personData: state.personData
+  }
+}
+
+
+export default connect(mapStateToProps)(Sos);
 
 const styles = {
     container: {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Image, TextInput, TouchableOpacity, Modal, StyleSheet, KeyboardAvoidingView, Platform, Alert, async, Picker, Linking } from 'react-native';
+import { Text, View, Image, TextInput, TouchableOpacity, Modal, StyleSheet, KeyboardAvoidingView, Platform, Alert, async, Picker, Linking, FlatList } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import db from '../routes/config'
@@ -7,6 +7,7 @@ import * as firebase from 'firebase'
 import { connect } from 'react-redux';
 
 import CryptoJS from "react-native-crypto-js";
+import { ThemeProvider } from 'react-native-elements';
 // import ModalDropdown from 'react-native-modal-dropdown';
 
 
@@ -31,12 +32,15 @@ class Profile extends React.Component {
             selected: '',
             pickerValue: '',
             pickerData: [],
+            showFlatList: true
 
             // isready : false,
             // isPassword : false,
         }
         this.isPassword = false;
-        this.isready = false
+        this.isready = false;
+        this.arrayholder = [];
+        this.newData = []
 
     }
     arr = []
@@ -48,10 +52,12 @@ class Profile extends React.Component {
             this.arr = Object.keys(snapshot.val())
             this.arr.push("other")
             this.arr.sort()
+            this.arrayholder = this.arr
             this.setState({
                 pickerData: this.arr
             })
-            console.log(this.state.pickerData)
+            this.arrayholder = this.arr
+            console.log(this.state.pickerData, this.arrayholder)
         })
 
     }
@@ -64,7 +70,7 @@ class Profile extends React.Component {
         if (this.isready && this.isPassword) {
 
             /*Variable to hold encrypted password  */
-            let Password_for_Db = CryptoJS.AES.encrypt(this.state.Password,'U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=').toString();
+            let Password_for_Db = CryptoJS.AES.encrypt(this.state.Password, 'U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=').toString();
 
             /*if user has opted for organization than data is stored in both the tables, organization and signupincomplete else only in signup incomplete*/
             if (this.state.category == "organization") {
@@ -144,8 +150,107 @@ class Profile extends React.Component {
         this.handleSignUp()
 
     }
+    ListViewItemSeparator = () => {
+        //Item sparator view
+        return (
+            <View
+                style={{
+                    height: hp('1%'),
+                    // width: '75%',
+                    borderBottomWidth: 0.25,
+                    // opacity:0.6,
+                    borderBottomColor: "grey",
+                    // marginLeft: wp('16%')
+                    // backgroundColor: '#080808',
+                    // position: "absolute"
+                    // borderLeftWidth:10
+                }}
+            />
+        );
+    };
+
+    
+    renderOrganizationActive = () => {
+        console.log("ogactive");
+        return (
+            <View >
+                <TextInput style={styles.TextInput}
+                    value={this.state.Organisation}
+                    autoFocus={true}
+                    onChangeText={(text) => {
+                        this.SearchFilterFunction(text)
+                        this.setState({
+                            showFlatList: true,
+                        })
+                    }}
+
+                />
+                {/* <View style={{ flex: 0.38 }}> */}
+                {this.state.showFlatList ?
+                    <View style={{ maxHeight: hp('13%') }} >
+                        <FlatList
+                            keyboardShouldPersistTaps={'always'}
+                            data={this.state.dataSource}
+                            ItemSeparatorComponent={this.ListViewItemSeparator}
+                            renderItem={({ item }) => (
+                                <TouchableOpacity onPress={() => {
+                                    console.log("clicked");
+
+                                    this.setState({
+                                        Organisation: item,
+                                        showFlatList: false,
+                                    })
+                                }}>
+                                    <View style={{ flexDirection: "column" }}>
+                                        {/* <Text numberOfLines={1} style={{fontSize:18,paddingLeft:wp('4%'),marginTop:wp('2%')}}>{item.user.name}</Text> */}
+                                        <Text numberOfLines={3} ellipsizeMode="middle" style={{ fontSize: 18 }}>{item}</Text>
+                                    </View>
+                                </TouchableOpacity>
+
+                            )}
+                            enableEmptySections={true}
+                            style={{ marginTop: 10 }}
+                            keyExtractor={(item, index) => index}
+                        />
+                    </View>
+                    :
+                    <View />
+                }
+            </View>
+        )
+    }
+
+
+    SearchFilterFunction(text) {
+        //passing the inserted text in textinput
+        // console.log("text = ",text)
+        // console.log("this.arrayholder= ",this.arrayholder);
+
+        this.newData = this.arrayholder.filter(function (item) {
+            //applying filter for the inserted text in search bar
+            const itemData = item ? item.toUpperCase() : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            // console.log("textData= ",textData);
+            // console.log("itemData.indexOf(textData)=",itemData.indexOf(textData));
+
+            return itemData.indexOf(textData) > -1;
+        });
+        this.setState({
+            //setting the filtered newData on datasource
+            //After setting the data it will automatically re-render the view
+            dataSource: this.newData,
+            Organisation: text,
+        }, () => {
+            console.log("dataSource= ", this.state.dataSource);
+
+        });
+        // console.log("newdata= ",this.newData)
+    }
+
 
     render() {
+        console.log("in render");
+
         if (Platform.OS == 'android') {
             return (
                 <View style={{ flex: 1 }}>
@@ -173,7 +278,7 @@ class Profile extends React.Component {
                                 </Text>
                             :
                             <Text style={styles.TextLabels}>
-                               Shop Name *
+                                Shop Name *
                             </Text>
 
                         }
@@ -204,7 +309,7 @@ class Profile extends React.Component {
                         <Text style={styles.TextLabels}>
                             Organisation
             </Text>
-                        {
+                        {/* {
                             this.state.category == 'organization' && this.state.selected != 'other' ?
                                 <Picker
                                     // style={{your_style}}
@@ -222,20 +327,24 @@ class Profile extends React.Component {
                                     {this.state.pickerData.map((item, index) => {
                                         return (<Picker.Item label={item} value={index} key={index} />)
                                     })}
-                                </Picker>
+                                </Picker> */}
 
-                                :
-
-                                <TextInput style={styles.TextInput}
-                                    value={this.state.Organisation}
-                                    onChangeText={(text) => {
-                                        this.setState({
-                                            Organisation: text
-                                        })
-                                    }}
-                                />
-
+                        {/* : */}
+                        {this.state.Organisation ?
+                            this.renderOrganizationActive()
+                            :
+                            <TextInput style={styles.TextInput}
+                                value={this.state.Organisation}
+                                onChangeText={(text) => this.SearchFilterFunction(text)
+                                    // this.setState({
+                                    //     Organisation: text,
+                                    // })
+                                }
+                            />
                         }
+
+
+                        {/* } */}
 
 
                         <Text style={styles.TextLabels}>
@@ -315,13 +424,13 @@ class Profile extends React.Component {
                         <Icon name="AntDesign" size={30} color="white" style={{ marginLeft: 10, marginTop: 10 }} />
                     </View>
                     <View style={{ marginTop: hp('2%'), width: wp('90%'), alignSelf: 'center' }}>
-                    {this.state.category == "individual" || this.state.category == "organization" ?
+                        {this.state.category == "individual" || this.state.category == "organization" ?
                             <Text style={styles.TextLabels}>
                                 Name *
                                 </Text>
                             :
                             <Text style={styles.TextLabels}>
-                               Shop Name *
+                                Shop Name *
                             </Text>
 
                         }

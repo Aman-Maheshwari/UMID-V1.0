@@ -159,6 +159,7 @@ class ProfileScreen extends Component {
                         <View style={styles.backgroundContainerLower}>
                             <Text style={styles.TextLabels}>Name</Text>
                             <TextInput style={styles.TextInput}
+                                value={this.state.name}
                                 onChangeText={(text) => this.props.dispatch({ type: 'UPDATE_TEXT', text: text })}
                             />
                             <Text style={styles.TextLabels}>Phone Number</Text>
