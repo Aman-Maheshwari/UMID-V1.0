@@ -308,28 +308,7 @@ class Profile extends React.Component {
                         />
                         <Text style={styles.TextLabels}>
                             Organisation
-            </Text>
-                        {/* {
-                            this.state.category == 'organization' && this.state.selected != 'other' ?
-                                <Picker
-                                    // style={{your_style}}
-                                    mode="dropdown"
-                                    selectedValue={this.state.pickerValue}
-                                    onValueChange={(itemValue, itemIndex) => {
-                                        this.setState({
-                                            Organisation: this.state.pickerData[itemValue],
-                                            selected: this.state.pickerData[itemValue],
-                                            pickerValue: itemValue
-                                        })
-                                        console.log(this.state)
-                                    }}
-                                >
-                                    {this.state.pickerData.map((item, index) => {
-                                        return (<Picker.Item label={item} value={index} key={index} />)
-                                    })}
-                                </Picker> */}
-
-                        {/* : */}
+                        </Text>
                         {this.state.Organisation ?
                             this.renderOrganizationActive()
                             :
@@ -342,9 +321,6 @@ class Profile extends React.Component {
                                 }
                             />
                         }
-
-
-                        {/* } */}
 
 
                         <Text style={styles.TextLabels}>
