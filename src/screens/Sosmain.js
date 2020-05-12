@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 class Sos extends React.Component{
     state={
         name : '',
-        phonenumber:'',
+        phonenumber:this.props.phonenumberuser,
         desc:'',
         category : '',
         message : '',
