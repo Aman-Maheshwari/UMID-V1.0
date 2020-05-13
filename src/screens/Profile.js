@@ -102,6 +102,7 @@ class Profile extends React.Component {
                 City: this.state.City,
                 State: this.state.State,
                 isRegistered: this.state.isRegistered,
+                BlockedCounter:0
             })
 
             console.log("data sent to firebase");
