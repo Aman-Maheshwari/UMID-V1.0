@@ -221,24 +221,26 @@ const renderBubble=props => {
 
   return (
     <View style={{flex:1}}>
-      <View style={{ height: hp('7%'), backgroundColor: "#0290ea" }}>
-                  {/* <Icon name="AntDesign" size={30} color="white" style={{ marginLeft: 10, marginTop: 10 }} />
-                   */}
-                         <TouchableOpacity onPress={
-      ()=>{
-      this.props.navigation.navigate('Chats') 
-      // console.log("lkjfdh")         
-      }
+      <View style={{ flex:0.1, backgroundColor: "#0290ea" ,flexDirection: 'row'}}>
+        <View style={{width:wp("10%"),justifyContent:'center'}}>
+              <TouchableOpacity onPress={
+                () => {
+                  this.props.navigation.navigate('Chats')
+                }
 
-    }
-    style={{position:'absolute',top:15,left:10,zIndex:10,height:40,width:40}}
-    >
-            <Image
-    source={require('../assets/back.png')}
-    style={{position:'absolute',top:3,left:10,zIndex:2,}}
-    />      
-    </TouchableOpacity>
-              </View>
+              }
+                style={{marginLeft:wp("3%")}}
+              >
+                <Image
+                  source={require('../assets/back.png')}
+                />
+              </TouchableOpacity>
+            </View>
+        <View style={{flex:1,justifyContent:'center',alignItems:'center',flexDirection:'column',marginRight:wp("10%")}}>
+              <Text style={{color:'black',fontSize:hp("2%"),fontWeight:'bold',alignSelf:"center",textAlign:'center',width:wp("70%")}}>{this.props.navigation.state.params.name}</Text>
+              <Text style={{color:'black',fontSize:hp("2%"),fontWeight:'bold',alignSelf:"center",textAlign:'center',width:wp("70%")}}>{this.props.navigation.state.params.phonenumber}</Text>
+        </View>
+        </View>
     <GiftedChat
       messages={this.state.messages}
       onSend={this.send}

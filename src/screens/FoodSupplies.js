@@ -165,7 +165,8 @@ const styles = StyleSheet.create({
         borderColor: 'grey',
         borderWidth: 1,
         opacity: .6,
-        borderRadius: hp("2%"),
-        height: hp('5%')
+        borderRadius: 10,
+        height: hp('5%'),
+        paddingLeft: 10,
     },
 })
