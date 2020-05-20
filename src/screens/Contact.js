@@ -36,27 +36,33 @@ export default class Contact extends React.Component{
 
 
                         <View style={{flexDirection:'row',marginLeft : wp('4%')}}>
-                            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
-                            
+                            <TouchableOpacity style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}} onPress={() => {
+                                 Linking.openURL(`tel:${9205397045}`)
+                            }}>
+                             {/* <TouchableOpacity onPress={() => {
+                                 Linking.openURL(`tel:${9205397045}`)
+                            }}> */}
                             <View style={{backgroundColor:'#E1F5FE',borderRadius:100}}>
                              <Image
                             source={require('../assets/ios-call.png')}
                             style={{margin:hp('2.5%')}}
                             />   
                             </View>
-                            <TouchableOpacity onPress={() => {
+                            {/* <TouchableOpacity onPress={() => {
                                  Linking.openURL(`tel:${9205397045}`)
-                            }}>
+                            }}> */}
                             <Text style={{marginLeft:wp('5%'),fontSize:18,}}>+91-9205397045</Text>
-                            </TouchableOpacity>
-                        </View>
+                            {/* </TouchableOpacity> */}
+                        </TouchableOpacity>
                         </View>
 
                             <View style={{height:hp('5%')}}>
 
                             </View>
                         <View style={{flexDirection:'row',marginLeft : wp('4%')}}>
-                            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                            <TouchableOpacity style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}} onPress={() => {
+                                 Linking.openURL('mailto:mtask2020@gmail.com')
+                            }}>
                             
                             <View style={{backgroundColor:'#E1F5FE',borderRadius:100}}>
                              <Image
@@ -65,7 +71,7 @@ export default class Contact extends React.Component{
                             />   
                             </View>
                             <Text style={{marginLeft:wp('5%'),fontSize:18,}}>mtask2020@gmail.com</Text>
-                        </View>
+                        </TouchableOpacity>
                         </View>
 
 
@@ -73,7 +79,9 @@ export default class Contact extends React.Component{
 
                             </View>
                         <View style={{flexDirection:'row', marginLeft : wp('4%')}}>
-                            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+                            <TouchableOpacity style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}} onPress={() => {
+                                Linking.openURL('http://www.umid-corona.in/');
+                            }}>
                             
                             <View style={{backgroundColor:'#E1F5FE',borderRadius:100}}>
                              <Image
@@ -81,12 +89,12 @@ export default class Contact extends React.Component{
                             style={{margin:hp('2%')}}
                             />   
                             </View>
-                            <TouchableOpacity onPress={() => {
+                            {/* <TouchableOpacity onPress={() => {
                                 Linking.openURL('http://www.umid-corona.in/');
-                            }}>
+                            }}> */}
                             <Text style={{marginLeft:wp('5%'),fontSize:18,}}>www.umid-corona.in</Text>
-                            </TouchableOpacity>
-                        </View>
+                            {/* </TouchableOpacity> */}
+                        </TouchableOpacity>
                         </View>
 
                     </View>
