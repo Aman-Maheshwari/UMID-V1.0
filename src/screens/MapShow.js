@@ -10,10 +10,12 @@
 // import { connect } from 'react-redux';
 // import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 // import Icon from "react-native-vector-icons/MaterialIcons"
+// import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 
 // import Animate from '../screenprev/Animate';
 
-// const { height } = Dimensions.get('window')
+// const { height , width } = Dimensions.get('window')
 
 // class MapShow extends React.Component {
 //   constructor(props) {
@@ -35,14 +37,17 @@
 //       phonenumber: null,
 //       org_found: false,
 //       rerender: true,
+//       BlockedCounter: 0,
 //       isMarkerClicked: null, // to check if any marker is clicked YASH
 //       markerClickedid: null, // phone number of clicked marker YASH
+//       messageToDisplay : 'Loading...',
+//       searchActive : false
 //     },
 //       this.position = null;
 //     this.longitude1 = null;
 //     this.latitude1 = null;
 
-
+//     console.disableYellowBox = true //disabling warning blocks
 
 //   }
 
@@ -189,6 +194,9 @@
 //                   firebase.database().ref("SignUpInComplete/" + this.props.phonenumberuser).on("value", snapshot => {
 //                     // console.log("inside firebase call");
 //                     // console.log(snapshot.val());
+//                     this.setState({
+//                       BlockedCounter: Number(snapshot.val().BlockedCounter),
+//                     })
 //                     if (snapshot.val())
 //                       resolve(snapshot.val())
 //                     else
@@ -301,6 +309,11 @@
 //     // this.deletefood()
 //     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
 //     this.callForInitialFetch()
+//     setTimeout(() => {
+//       this.setState({
+//         messageToDisplay : 'Please Check your Internet Connection or restart your app'
+//       })
+//     }, 15000);
 //   }
 
 //   //For deleting normal alert and chats
@@ -388,6 +401,9 @@
 //   }
 
 //   handleBackButton = () => {
+//     if(this.state.searchActive){
+//       this.setState({ searchActive : false})
+//     }else{
 //     Alert.alert(
 //       'Exit App',
 //       'Exiting the application?', [{
@@ -400,7 +416,9 @@
 //       },], {
 //       cancelable: false
 //     }
-//     )
+//     )      
+//     }
+
 //     return true;
 //   }
 
@@ -542,7 +560,7 @@
 //             </View>
 //           </TouchableOpacity>
 //           <View style={{ alignItems: 'center', justifyContent: 'center', height: hp("5%") }}>
-//             <Text style={{ fontSize: 18 }}>ALERTS</Text>
+//             <Text style={{ fontSize: wp('4.5%') }}>ALERTS</Text>
 //           </View>
 //         </View>
 //         {/* {console.log(this.state.typeShop.length, "in ciww ansfhsoajf")} */}
@@ -561,40 +579,59 @@
 //                     // if part
 //                     item.category == "Emotional Support" ? <View>
 //                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-//                         <View style={{ width: wp("60%") }}>
-//                           <Text style={{ fontSize: 22, marginLeft: 10, fontWeight: 'bold' }}>
+//                         <View style={{ width: wp("50%") }}>
+//                           <Text style={{ fontSize: wp('5.6%'), marginLeft: 10, fontWeight: 'bold' }}>
 //                             Anonymous
 //                     </Text>
-//                           <Text style={{ fontSize: 14, marginLeft: 10 }}>
+//                           <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
 //                             {item.category}
 //                           </Text>
 //                         </View>
 
 //                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//                           {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
+//                           {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
 //                         Category: {item.category}
 //                       </Text> */}
 //                           {this.props.phonenumberuser == item.phonenumber ?
-//                             <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
+//                           <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                             <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+ 
+
+//                             {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
+//                             <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
+//                           </View>
 //                             :
-//                             <TouchableOpacity onPress={() => {
-//                               if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-//                                 this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-//                               }
-//                               else {
-//                                 this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-//                               }
-//                             }}>
-//                               <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} />
-//                             </TouchableOpacity>
+//                             <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                           <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+//                               {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
+//                               {this.state.BlockedCounter > 2 ? 
+//                               <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+//                               :
+//                               <TouchableOpacity onPress={() => {
+//                                 if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+//                                   this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+//                                 }
+//                                 else {
+//                                   this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+//                                 }
+//                               }}>
+//                               <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+//                               </TouchableOpacity>
+//                             }
+//                             </View>
 //                           }
-//                           <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} />
+//                           {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("3%") }} /> */}
+//                           <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
 
 //                           {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
 //                           {
 //                             this.props.phonenumberuser == item.phonenumber ?
-//                               <View>
-//                                 <TouchableOpacity style={{ fontSize: 14, marginRight: 10 }} onPress={() => {
+//                               <View style={{flexDirection:'row'}}>
+//                                 <TouchableOpacity onPress={() => {
 
 
 //                                   Alert.alert(
@@ -633,12 +670,12 @@
 //                                   );
 
 //                                 }}>
-//                                   <Icon name="delete" size={30} color="#0091EA" />
+//                                   <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
 //                                 </TouchableOpacity>
 //                               </View>
 //                               :
-//                               <View style={{ marginRight: 10 }}>
-//                                 <Icon name="delete" size={30} color="grey" />
+//                               <View >
+//                                 <Icon name="delete" size={30} color="grey" style={{marginRight:wp('2%')}} />
 //                               </View>
 //                           }
 //                         </View>
@@ -646,23 +683,38 @@
 //                     </View> : <View>
 //                         {/* changing to blue color of text of selected marker */}
 //                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-//                           <View style={{ width: wp("60%") }}>
-//                             <Text style={{ fontSize: 22, marginLeft: 10, fontWeight: 'bold' }}>
+//                           <View style={{ width: wp("50%") }}>
+//                             <Text style={{ fontSize: wp('5.6%'), marginLeft: 10, fontWeight: 'bold' }}>
 //                               {item.name}
 //                             </Text>
-//                             <Text style={{ fontSize: 14, marginLeft: 10 }}>
+//                             <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
 //                               Category: {item.category}
 //                             </Text>
 //                           </View>
 
 //                           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 //                             {this.props.phonenumberuser == item.phonenumber ?
-//                               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//                                 <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
-//                                 <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} />
-//                               </View>
+
+//                           <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                           <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
+//                           <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+//                           </TouchableOpacity>
+
+
+//                           {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
+//                           <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
+//                           <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
+//                         </View>
 //                               :
 //                               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+//                           <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
+//                           <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+//                           </TouchableOpacity>  
+
 //                                 <TouchableOpacity onPress={() => {
 //                                   if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                                     this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
@@ -671,12 +723,16 @@
 //                                     this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
 //                                   }
 //                                 }}>
-//                                   <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} />
+//                                   {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
+//                                   <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+
 //                                 </TouchableOpacity>
 //                                 <TouchableOpacity onPress={() => {
 //                                   Linking.openURL(`tel:${item.phonenumber}`)
 //                                 }}>
-//                                   <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} />
+//                                   {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
+//                                   <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+
 //                                 </TouchableOpacity>
 //                               </View>
 //                             }
@@ -685,7 +741,7 @@
 //                             {
 //                               this.props.phonenumberuser == item.phonenumber ?
 //                                 <View>
-//                                   <TouchableOpacity style={{ fontSize: 14, marginRight: 10 }} onPress={() => {
+//                                   <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 //                                     Alert.alert(
 //                                       "Are you sure?",
 //                                       "If you delete a SOS, all related chats will also be deleted",
@@ -721,54 +777,74 @@
 //                                       { cancelable: true }
 //                                     );
 //                                   }}>
-//                                     <Icon name="delete" size={30} color="#0091EA" />
+//                                     <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
 //                                   </TouchableOpacity>
 //                                 </View>
 //                                 :
-//                                 <View style={{ marginRight: 10 }}>
-//                                   <Icon name="delete" size={30} color="grey" />
+//                                 <View >
+//                                   <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 //                                 </View>
 //                             }
 //                           </View>
 //                         </View>
 //                       </View>
 //                     :
-//                     // else part
+//                     // else part of ismarkerclicked
 //                     item.category == "Emotional Support" ? <View>
 //                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-//                         <View style={{ width: wp("60%") }}>
-//                           <Text style={{ fontSize: 22, marginLeft: 10 }}>
+//                         <View style={{ width: wp("50%") }}>
+//                           <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
 //                             Anonymous
 //                     </Text>
-//                           <Text style={{ fontSize: 14, marginLeft: 10 }}>
+//                           <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
 //                             {item.category}
 //                           </Text>
 //                         </View>
 //                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//                           {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
+//                           {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
 //                         Category: {item.category}
 //                       </Text> */}
 //                           {this.props.phonenumberuser == item.phonenumber ?
-//                             <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
+
+//                           // abhi dala (for yash reference)
+//                           <View style={{flexDirection:'row', alignItems:'center'}}>
+//                           <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+
+//                             {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
+//                             <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+                            
+//                           </View>  
+
 //                             :
-//                             <TouchableOpacity onPress={() => {
-//                               if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-//                                 this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-//                               }
-//                               else {
-//                                 this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-//                               }
-//                             }}>
-//                               <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} />
-//                             </TouchableOpacity>
+//                             <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                           <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+//                               {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
+//                               {this.state.BlockedCounter > 2 ? 
+//                               <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+//                               :
+//                               <TouchableOpacity onPress={() => {
+//                                 if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+//                                   this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+//                                 }
+//                                 else {
+//                                   this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+//                                 }
+//                               }}>
+//                               <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+//                               </TouchableOpacity>
+//                             }
+//                             </View>
 //                           }
-//                           <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} />
+//                           {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
+//                           <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
 
 //                           {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
 //                           {
 //                             this.props.phonenumberuser == item.phonenumber ?
 //                               <View>
-//                                 <TouchableOpacity style={{ fontSize: 14, marginRight: 10 }} onPress={() => {
+//                                 <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 
 //                                   Alert.alert(
 //                                     "Are you sure?",
@@ -809,12 +885,12 @@
 //                                     { cancelable: true }
 //                                   );
 //                                 }}>
-//                                   <Icon name="delete" size={30} color="#0091EA" />
+//                                   <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
 //                                 </TouchableOpacity>
 //                               </View>
 //                               :
-//                               <View style={{ marginRight: 10 }}>
-//                                 <Icon name="delete" size={30} color="grey" />
+//                               <View >
+//                                 <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 //                               </View>
 //                           }
 //                         </View>
@@ -825,22 +901,35 @@
 
 //                       <View>
 //                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-//                           <View style={{ width: wp("60%") }}>
-//                             <Text style={{ fontSize: 22, marginLeft: 10 }}>
+//                           <View style={{ width: wp("50%") }}>
+//                             <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
 //                               {item.name}
 //                             </Text>
-//                             <Text style={{ fontSize: 14, marginLeft: 10 }}>
+//                             <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
 //                               Category: {item.category}
 //                             </Text>
 //                           </View>
 //                           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 //                             {this.props.phonenumberuser == item.phonenumber ?
-//                               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//                                 <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
-//                                 <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} />
-//                               </View>
+//                           <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                           <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
+//                           <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+//                           </TouchableOpacity>
+
+
+//                           {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
+//                           <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
+//                           <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+
+//                         </View>
 //                               :
 //                               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                
+//                                 <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
+//                                 <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+//                                 </TouchableOpacity>                                 
 //                                 <TouchableOpacity onPress={() => {
 //                                   if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                                     this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
@@ -849,12 +938,16 @@
 //                                     this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
 //                                   }
 //                                 }}>
-//                                   <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} />
+//                                   {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
+//                                   <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+
 //                                 </TouchableOpacity>
 //                                 <TouchableOpacity onPress={() => {
 //                                   Linking.openURL(`tel:${item.phonenumber}`)
 //                                 }}>
-//                                   <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} />
+//                                   {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
+//                                   <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+
 //                                 </TouchableOpacity>
 //                               </View>
 //                             }
@@ -863,7 +956,7 @@
 //                             {
 //                               this.props.phonenumberuser == item.phonenumber ?
 //                                 <View>
-//                                   <TouchableOpacity style={{ fontSize: 14, marginRight: 10 }} onPress={() => {
+//                                   <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 //                                     Alert.alert(
 //                                       "Are you sure?",
 //                                       "If you delete a SOS, all related chats will also be deleted",
@@ -899,12 +992,12 @@
 //                                       { cancelable: true }
 //                                     );
 //                                   }}>
-//                                     <Icon name="delete" size={30} color="#0091EA" />
+//                                     <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
 //                                   </TouchableOpacity>
 //                                 </View>
 //                                 :
-//                                 <View style={{ marginRight: 10 }}>
-//                                   <Icon name="delete" size={30} color="grey" />
+//                                 <View >
+//                                   <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 //                                 </View>
 //                             }
 //                           </View>
@@ -915,39 +1008,57 @@
 
 //                   item.category == "Emotional Support" ? <View>
 //                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-//                       <View style={{ width: wp("60%") }}>
-//                         <Text style={{ fontSize: 22, marginLeft: 10 }}>
+//                       <View style={{ width: wp("50%") }}>
+//                         <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
 //                           Anonymous
 //                     </Text>
-//                         <Text style={{ fontSize: 14, marginLeft: 10 }}>
+//                         <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
 //                           {item.category}
 //                         </Text>
 //                       </View>
 //                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//                         {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
+//                         {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
 //                         Category: {item.category}
 //                       </Text> */}
 //                         {this.props.phonenumberuser == item.phonenumber ?
-//                           <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
+//                           // <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
+//                           <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                           <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+
+//                               <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+                            
+//                           </View>
 //                           :
-//                           <TouchableOpacity onPress={() => {
-//                             if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-//                               this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+//                           <View style={{flexDirection:'row',alignItems:'center'}}>
+
+//                           <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+//                               {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
+//                               {this.state.BlockedCounter > 2 ? 
+//                               <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+//                               :
+//                               <TouchableOpacity onPress={() => {
+//                                 if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+//                                   this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+//                                 }
+//                                 else {
+//                                   this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+//                                 }
+//                               }}>
+//                               <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
+//                               </TouchableOpacity>
 //                             }
-//                             else {
-//                               this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-//                             }
-//                           }}>
-//                             <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} />
-//                           </TouchableOpacity>
+//                             </View>
 //                         }
-//                         <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} />
+//                         {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
+//                         <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+
 
 //                         {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
 //                         {
 //                           this.props.phonenumberuser == item.phonenumber ?
 //                             <View>
-//                               <TouchableOpacity style={{ fontSize: 14, marginRight: 10 }} onPress={() => {
+//                               <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 
 //                                 Alert.alert(
 //                                   "Are you sure?",
@@ -984,34 +1095,48 @@
 //                                   { cancelable: true }
 //                                 );
 //                               }}>
-//                                 <Icon name="delete" size={30} color="#0091EA" />
+//                                 <Icon name="delete" size={30} color="#0091EA" style={{marginRight:wp('2%')}} />
 //                               </TouchableOpacity>
 //                             </View>
 //                             :
-//                             <View style={{ marginRight: 10 }}>
-//                               <Icon name="delete" size={30} color="grey" />
+//                             <View>
+//                               <Icon name="delete" size={30} color="grey" style={{marginRight:wp('2%')}} />
 //                             </View>
 //                         }
 //                       </View>
 //                     </View>
 //                   </View> : <View>
 //                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-//                         <View style={{ width: wp("60%") }}>
-//                           <Text style={{ fontSize: 22, marginLeft: 10 }}>
+//                         <View style={{ width: wp("50%") }}>
+//                           <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
 //                             {item.name}
 //                           </Text>
-//                           <Text style={{ fontSize: 14, marginLeft: 10 }}>
+//                           <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
 //                             Category: {item.category}
 //                           </Text>
 //                         </View>
 //                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 //                           {this.props.phonenumberuser == item.phonenumber ?
 //                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-//                               <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
-//                               <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} />
+
+//                           <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
+//                           <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+//                           </TouchableOpacity>
+
+//                               {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
+//                               <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+
+//                               {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
+//                               <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+
 //                             </View>
 //                             :
 //                             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+//                           <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
+//                           <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+//                           </TouchableOpacity>
+
 //                               <TouchableOpacity onPress={() => {
 //                                 if (this.props.phonenumberuser == null && this.props.nameuser == null) {
 //                                   this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
@@ -1020,12 +1145,16 @@
 //                                   this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
 //                                 }
 //                               }}>
-//                                 <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} />
+//                                 {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
+//                                 <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+
 //                               </TouchableOpacity>
 //                               <TouchableOpacity onPress={() => {
 //                                 Linking.openURL(`tel:${item.phonenumber}`)
 //                               }}>
-//                                 <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} />
+//                                 {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
+//                                 <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
+                                
 //                               </TouchableOpacity>
 //                             </View>
 //                           }
@@ -1034,7 +1163,7 @@
 //                           {
 //                             this.props.phonenumberuser == item.phonenumber ?
 //                               <View>
-//                                 <TouchableOpacity style={{ fontSize: 14, marginRight: 10 }} onPress={() => {
+//                                 <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 //                                   Alert.alert(
 //                                     "Are you sure?",
 //                                     "If you delete a SOS, all related chats will also be deleted",
@@ -1070,12 +1199,12 @@
 //                                     { cancelable: true }
 //                                   );
 //                                 }}>
-//                                   <Icon name="delete" size={30} color="#0091EA" />
+//                                   <Icon name="delete" size={30} color="#0091EA" style={{marginRight:wp('2%')}} />
 //                                 </TouchableOpacity>
 //                               </View>
 //                               :
-//                               <View style={{ marginRight: 10 }}>
-//                                 <Icon name="delete" size={30} color="grey" />
+//                               <View>
+//                                 <Icon name="delete" size={30} color="grey" style={{marginRight:wp('2%')}} />
 //                               </View>
 //                           }
 //                         </View>
@@ -1092,7 +1221,7 @@
 //           style={{ margin: hp('1%') }}
 //           keyExtractor={(item, index) => index}
 //         /> : <View style={{ justifyContent: 'center', alignItems: 'center', height: hp("42.5%") }}>
-//             <Text style={{ color: 'grey', fontSize: 18 }}>No alerts found!</Text>
+//             <Text style={{ color: 'grey', fontSize: wp('4.5%') }}>No alerts found!</Text>
 //           </View>}
 
 //         {this.state.organistaion ?
@@ -1115,7 +1244,7 @@
 
 //                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
-//                     <Text style={{ color: '#0290ea', fontSize: 14 }}>Near By Alerts</Text>
+//                     <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Near By Alerts</Text>
 //                   </View>
 
 //                 </TouchableOpacity>
@@ -1134,7 +1263,7 @@
 //                 }}>
 //                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
-//                     <Text style={{ color: "black", fontSize: 14 }}>Near By Alerts</Text>
+//                     <Text style={{ color: "black", fontSize: wp('3.5%') }}>Near By Alerts</Text>
 //                   </View>
 //                 </TouchableOpacity>
 //               }
@@ -1155,7 +1284,7 @@
 //                 }}>
 //                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
-//                     <Text style={{ color: '#0290ea', fontSize: 14 }}>Organizational Alerts</Text>
+//                     <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Organizational Alerts</Text>
 //                   </View>
 //                 </TouchableOpacity>
 //                 :
@@ -1170,7 +1299,7 @@
 //                 }}>
 //                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
-//                     <Text style={{ color: "black", fontSize: 14 }}>Organizational Alerts</Text>
+//                     <Text style={{ color: "black", fontSize: wp('3.5%') }}>Organizational Alerts</Text>
 //                   </View>
 //                 </TouchableOpacity>}
 //             </View>
@@ -1194,6 +1323,8 @@
 //     // console.log("Inside render", this.props.phonenumberuser)
 //     // Adding Keyboard Eventlistner
 
+//     const sampleData = ["Lucknow","Tamil","Himachal"]
+
 //     const _keyboardDidShow = () => {
 //       console.log("keyboard up")
 //     };
@@ -1201,18 +1332,153 @@
 //     // console.log("Aditya here", this.props.personData.name)
 //     // console.log("markerssss", this.state.markers);
 
+//     if(this.state.searchActive){
+//       return(
+//       //   <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
+//       //   <TouchableOpacity onPress={
+//       //     () => {
+//       //       this.props.navigation.toggleDrawer();
+//       //     }
+//       //   }>
+//       //     <Image
+//       //       source={require('../assets/ham.png')}
+//       //       style={{ height: hp("3.5%"), width: hp("3.5%") }}
+//       //     />
+//       //   </TouchableOpacity>
+
+//       //   <View style={{ width: wp('4%') }}></View>
+//       //   <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
+//       //     <View style={{ width: wp('3%') }}></View>
+
+//       //     <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+//       //       placeholder="Search Location"
+//       //       placeholderTextColor="#0290ea"
+//       //       autoFocus={true}
+//       //       value={this.state.search}
+//       //       onChangeText={(text) => {
+//       //         this.setState({ search: text })
+//       //       }}
+//       //     />                
+
+//       //     <TouchableOpacity onPress={() => {
+//       //       // console.log("search pressed")
+//       //       var placeSearched = this.state.search
+//       //       var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+//       //       // console.log(" Searched Pressed " + placeSearched)
+//       //       fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+//       //         .then((response) => response.json())
+//       //         .then((responseJson) => {
+//       //           // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+//       //           this.setState({
+//       //             latitude: responseJson.results[0].geometry.location.lat,
+//       //             longitude: responseJson.results[0].geometry.location.lng,
+//       //             isSearch: true
+//       //           })
+//       //         })
+//       //     }}>
+//       //       <Image
+//       //         source={require('../assets/search.png')}
+//       //       />
+//       //     </TouchableOpacity>
+//       //     <View style={{ width: wp('5%'), height: hp('3%') }}></View>
+//       //     <TouchableOpacity onPress={() => {
+//       //       Geolocation.getCurrentPosition(
+//       //         (position) => {
+//       //           // console.log(position)
+//       //           this.setState({
+//       //             latitude: position.coords.latitude,
+//       //             longitude: position.coords.longitude
+//       //           })
+//       //         }, (error) => alert(error.message),
+//       //         {
+//       //           enableHighAccuracy: false,
+//       //           timeout: 5000,
+//       //           maximumAge: 10000
+//       //         })
+//       //     }}>
+//       //       <Image source={require('../assets/location.png')}
+//       //         style={{ height: hp('3%'), width: wp('4%') }} />
+//       //     </TouchableOpacity>
+//       //   </View>
+//       // </View>
+//       <View style={{flex:1}}>
+//         <TouchableOpacity
+//         onPress={()=>{
+//           this.setState({ searchActive : false })
+//         }}
+//         >
+//          <Icon name = "arrow-back" color="#0290ea" size={30} style={{marginTop:hp('2%'),marginLeft:wp('3%')}} />
+//         </TouchableOpacity>
+//       <GooglePlacesAutocomplete
+//       placeholder='Search Location'
+//       fetchDetails = {true}
+//       autoFocus = {true}
+//       onPress={(data, details = null) => {
+//         // 'details' is provided when fetchDetails = true
+//         // console.log(data, details);
+//         console.log("details are" , details.geometry.location)
+//         var location = details.geometry.location
+//         this.setState({
+//           latitude : location.lat,
+//           longitude : location.lng,
+//           searchActive : false
+//         })        
+//         console.log("data is" ,data)
+//       }}
+//       query={{
+//         key: 'AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc',
+//         language: 'en',
+//       }}
+//       styles={{
+//         description:{
+//           color:'#777'
+//         },
+
+//         textInputContainer: {
+//           backgroundColor: 'rgba(0,0,0,0)',
+//           borderTopWidth: 0,
+//           borderBottomWidth: 0,
+//           width:wp('90%'),
+//           alignSelf:'center',
+//           marginTop : hp('3%'),
+//           color:'#777'
+//         },
+//         textInput: {
+//           marginLeft: 0,
+//           marginRight: 0,
+//           height: 38,
+//           color: '#777',
+//           fontSize: 16,
+//           placeholderTextColor : "#777"
+//         },
+//         predefinedPlacesDescription: {
+//           color: '#777',
+//         },
+//       }}
+//     />        
+//       </View>
+
+
+//       )
+//     }
+
 //     if (this.state.latitude != null && this.state.markers != null) {
 //       // console.log("MArkers: ", this.state.markers)
 //       const shift = this.mode.interpolate({
 //         inputRange: [0, 1],
 //         outputRange: [-1 * height / 2, 0]
 //       })
-//       // console.log(this.state.markers)
+
+//       const MarkerHeight = (height/2) - hp('8%')-18
+//       const MarkerLeft = (width/2)-15
+      
+
 //       return (
 //         <View style={{ flex: 1 }}>
 //           <KeyboardAvoidingView style={{ flex: 1 }}>
+            
 //             {/* Location Icon permanent */}
-//             <Icon name="location-on" size={30} style={{ zIndex: 10, top: hp('40%'), left: wp('46%'), position: 'absolute' }} color="#e85433" />
+//             <Icon name="location-on" size={30} style={{ zIndex: 10, top: MarkerHeight, left: MarkerLeft, position: 'absolute' }} color="#e85433" />
 //             <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
 //               <TouchableOpacity onPress={
 //                 () => {
@@ -1228,14 +1494,24 @@
 //               <View style={{ width: wp('4%') }}></View>
 //               <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
 //                 <View style={{ width: wp('3%') }}></View>
-//                 <TextInput style={{ width: '75%', zIndex: 1 }}
-//                   placeholder="Search"
+//                 <TouchableOpacity 
+//                 onPress={
+//                   ()=>{
+//                     this.setState({ searchActive : true })
+//                   }
+//                 }
+//                 >
+//                 <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+//                   placeholder="Search Location ..."
 //                   placeholderTextColor="#0290ea"
 //                   value={this.state.search}
+//                   editable = {false}
 //                   onChangeText={(text) => {
 //                     this.setState({ search: text })
 //                   }}
-//                 />
+//                 />                  
+//                 </TouchableOpacity>
+
 //                 <TouchableOpacity onPress={() => {
 //                   // console.log("search pressed")
 //                   var placeSearched = this.state.search
@@ -1332,7 +1608,7 @@
 
 //               {this.state.anonymous_marker.map((marker) =>
 //                 <Marker
-//                   pinColor="yellow"
+//                   pinColor="blue"
 //                   title={marker.name}
 //                   key={marker.phonenumber}
 //                   coordinate={{
@@ -1367,7 +1643,7 @@
 //           {/* <Animated.View style={{position:'absolute',bottom:shift,width:"100%"}}>
 //                 <GestureRecognizer onSwipeUp={this.handdlePress}
 //                 onSwipeDown={this.handdlePress1} style={{flex:1,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-//                   <TouchableOpacity onPress={() => console.log("Hey")} style={{alignSelf:'flex-end',height:hp("9%"),width:wp("22%")}}>
+//                   <TouchableOpacity onPress={() => console.log("Hey")} style={{alignSelf:'flex-end',height:hp("9%"),width:wp("wp('5.6%')%")}}>
 //                         <Image source={require("../assets/sos.png")} />
 //                     </TouchableOpacity>
 //                     <View style={{width:'100%',backgroundColor:'grey',justifyContent:'center',alignItems:'center',flex:1,height:300}}>
@@ -1382,7 +1658,7 @@
 //             <GestureRecognizer onSwipeUp={this.handdlePress}
 //               onSwipeDown={this.handdlePress1}
 //               style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: wp('5%') }}>
-//               <TouchableOpacity onPress={() => this.props.navigation.navigate("Sosmain", { latitude: this.latitude1, longitude: this.longitude1 })} style={{ alignSelf: 'flex-end', height: hp("6%"), width: wp("20%"), marginBottom: wp('4%') }}>
+//               <TouchableOpacity onPress={() => this.props.navigation.navigate("Sosmain", { latitude: this.latitude1, longitude: this.longitude1 })} style={{ alignSelf: 'flex-end', height: hp("8%"), width: wp("20%"), marginBottom: wp('4%'), }}>
 //                 <Image source={require("../assets/sos.png")} />
 //               </TouchableOpacity>
 //               {/* <View style={{width:wp('100%'),height:hp('2%'),backgroundColor:"white",marginBottom:wp('1%'),elevation:2}}>
@@ -1424,14 +1700,24 @@
 //             <View style={{ width: wp('4%') }}></View>
 //             <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
 //               <View style={{ width: wp('3%') }}></View>
-//               <TextInput style={{ width: '75%', zIndex: 1 }}
-//                 placeholder="Search"
+//               <TouchableOpacity
+//               onPress = {
+//                 ()=>{
+//                   this.setState({ searchActive : true })
+//                 }
+//               }
+//               >
+//               <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+//                 placeholder="Search Location"
 //                 placeholderTextColor="#0290ea"
+//                 editable = {false}
 //                 value={this.state.search}
 //                 onChangeText={(text) => {
 //                   this.setState({ search: text })
 //                 }}
-//               />
+//               />                
+//               </TouchableOpacity>
+
 //               <TouchableOpacity onPress={() => {
 //                 // console.log("search pressed")
 //                 var placeSearched = this.state.search
@@ -1500,7 +1786,7 @@
 //             <GestureRecognizer onSwipeUp={this.handdlePress}
 //               onSwipeDown={this.handdlePress1}
 //               style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: wp('5%') }}>
-//               <TouchableOpacity onPress={() => console.log("Hey")} style={{ alignSelf: 'flex-end', height: hp("6%"), width: wp("20%"), marginBottom: wp('4%') }}>
+//               <TouchableOpacity onPress={() => console.log("Hey")} style={{ alignSelf: 'flex-end', height: hp("8%"), width: wp("20%"), marginBottom: wp('4%') }}>
 //                 <Image source={require("../assets/sos.png")} />
 //               </TouchableOpacity>
 //               {/* <View style={{width:wp('100%'),height:hp('2%'),backgroundColor:"white",marginBottom:wp('1%'),elevation:2}}>
@@ -1518,7 +1804,8 @@
 //       return (
 //         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 //           <ActivityIndicator />
-//           <Text>Please Wait</Text><Text>-or-</Text><Text>Check Your Internet Connection And Restart Your App Again</Text>
+//           {/* <Text>Please Wait</Text><Text>-or-</Text><Text>Check Your Internet Connection And Restart Your App Again</Text> */}
+//           <Text> { this.state.messageToDisplay } </Text>
 //         </View>);
 //     }
 //   }
@@ -1840,6 +2127,8 @@
 //   ]
 // }
 // ]
+
+
 import * as React from 'react';
 import { StyleSheet, Text, View, Button, Alert, Keyboard, TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView, Linking, BackHandler, ActivityIndicator } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
@@ -1852,10 +2141,12 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import { connect } from 'react-redux';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Icon from "react-native-vector-icons/MaterialIcons"
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+
 
 import Animate from '../screenprev/Animate';
 
-const { height } = Dimensions.get('window')
+const { height , width } = Dimensions.get('window')
 
 class MapShow extends React.Component {
   constructor(props) {
@@ -1880,12 +2171,14 @@ class MapShow extends React.Component {
       BlockedCounter: 0,
       isMarkerClicked: null, // to check if any marker is clicked YASH
       markerClickedid: null, // phone number of clicked marker YASH
+      messageToDisplay : 'Loading...',
+      searchActive : false
     },
       this.position = null;
     this.longitude1 = null;
     this.latitude1 = null;
 
-
+    console.disableYellowBox = true //disabling warning blocks
 
   }
 
@@ -2147,6 +2440,11 @@ class MapShow extends React.Component {
     // this.deletefood()
     BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     this.callForInitialFetch()
+    setTimeout(() => {
+      this.setState({
+        messageToDisplay : 'Please Check your Internet Connection or restart your app'
+      })
+    }, 15000);
   }
 
   //For deleting normal alert and chats
@@ -2234,6 +2532,9 @@ class MapShow extends React.Component {
   }
 
   handleBackButton = () => {
+    if(this.state.searchActive){
+      this.setState({ searchActive : false})
+    }else{
     Alert.alert(
       'Exit App',
       'Exiting the application?', [{
@@ -2246,7 +2547,9 @@ class MapShow extends React.Component {
       },], {
       cancelable: false
     }
-    )
+    )      
+    }
+
     return true;
   }
 
@@ -2388,7 +2691,7 @@ class MapShow extends React.Component {
             </View>
           </TouchableOpacity>
           <View style={{ alignItems: 'center', justifyContent: 'center', height: hp("5%") }}>
-            <Text style={{ fontSize: 18 }}>ALERTS</Text>
+            <Text style={{ fontSize: wp('4.5%') }}>ALERTS</Text>
           </View>
         </View>
         {/* {console.log(this.state.typeShop.length, "in ciww ansfhsoajf")} */}
@@ -2408,16 +2711,16 @@ class MapShow extends React.Component {
                     item.category == "Emotional Support" ? <View>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                         <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: 22, marginLeft: 10, fontWeight: 'bold' }}>
+                          <Text style={{ fontSize: wp('5.6%'), marginLeft: 10, fontWeight: 'bold' }}>
                             Anonymous
                     </Text>
-                          <Text style={{ fontSize: 14, marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                             {item.category}
                           </Text>
                         </View>
 
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
+                          {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
                         Category: {item.category}
                       </Text> */}
                           {this.props.phonenumberuser == item.phonenumber ?
@@ -2512,10 +2815,10 @@ class MapShow extends React.Component {
                         {/* changing to blue color of text of selected marker */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                           <View style={{ width: wp("50%") }}>
-                            <Text style={{ fontSize: 22, marginLeft: 10, fontWeight: 'bold' }}>
+                            <Text style={{ fontSize: wp('5.6%'), marginLeft: 10, fontWeight: 'bold' }}>
                               {item.name}
                             </Text>
-                            <Text style={{ fontSize: 14, marginLeft: 10 }}>
+                            <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                               Category: {item.category}
                             </Text>
                           </View>
@@ -2569,7 +2872,7 @@ class MapShow extends React.Component {
                             {
                               this.props.phonenumberuser == item.phonenumber ?
                                 <View>
-                                  <TouchableOpacity style={{ fontSize: 14 }} onPress={() => {
+                                  <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
                                     Alert.alert(
                                       "Are you sure?",
                                       "If you delete a SOS, all related chats will also be deleted",
@@ -2617,19 +2920,19 @@ class MapShow extends React.Component {
                         </View>
                       </View>
                     :
-                    // else part
+                    // else part of ismarkerclicked
                     item.category == "Emotional Support" ? <View>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                         <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: 22, marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
                             Anonymous
                     </Text>
-                          <Text style={{ fontSize: 14, marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                             {item.category}
                           </Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
+                          {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
                         Category: {item.category}
                       </Text> */}
                           {this.props.phonenumberuser == item.phonenumber ?
@@ -2672,7 +2975,7 @@ class MapShow extends React.Component {
                           {
                             this.props.phonenumberuser == item.phonenumber ?
                               <View>
-                                <TouchableOpacity style={{ fontSize: 14 }} onPress={() => {
+                                <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 
                                   Alert.alert(
                                     "Are you sure?",
@@ -2730,10 +3033,10 @@ class MapShow extends React.Component {
                       <View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                           <View style={{ width: wp("50%") }}>
-                            <Text style={{ fontSize: 22, marginLeft: 10 }}>
+                            <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
                               {item.name}
                             </Text>
-                            <Text style={{ fontSize: 14, marginLeft: 10 }}>
+                            <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                               Category: {item.category}
                             </Text>
                           </View>
@@ -2784,7 +3087,7 @@ class MapShow extends React.Component {
                             {
                               this.props.phonenumberuser == item.phonenumber ?
                                 <View>
-                                  <TouchableOpacity style={{ fontSize: 14 }} onPress={() => {
+                                  <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
                                     Alert.alert(
                                       "Are you sure?",
                                       "If you delete a SOS, all related chats will also be deleted",
@@ -2837,15 +3140,15 @@ class MapShow extends React.Component {
                   item.category == "Emotional Support" ? <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                       <View style={{ width: wp("50%") }}>
-                        <Text style={{ fontSize: 22, marginLeft: 10 }}>
+                        <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
                           Anonymous
                     </Text>
-                        <Text style={{ fontSize: 14, marginLeft: 10 }}>
+                        <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                           {item.category}
                         </Text>
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {/* <Text style={{ fontSize: 14, marginRight: 10 }}>
+                        {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
                         Category: {item.category}
                       </Text> */}
                         {this.props.phonenumberuser == item.phonenumber ?
@@ -2886,7 +3189,7 @@ class MapShow extends React.Component {
                         {
                           this.props.phonenumberuser == item.phonenumber ?
                             <View>
-                              <TouchableOpacity style={{ fontSize: 14 }} onPress={() => {
+                              <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
 
                                 Alert.alert(
                                   "Are you sure?",
@@ -2936,10 +3239,10 @@ class MapShow extends React.Component {
                   </View> : <View>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                         <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: 22, marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
                             {item.name}
                           </Text>
-                          <Text style={{ fontSize: 14, marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                             Category: {item.category}
                           </Text>
                         </View>
@@ -2991,7 +3294,7 @@ class MapShow extends React.Component {
                           {
                             this.props.phonenumberuser == item.phonenumber ?
                               <View>
-                                <TouchableOpacity style={{ fontSize: 14 }} onPress={() => {
+                                <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
                                   Alert.alert(
                                     "Are you sure?",
                                     "If you delete a SOS, all related chats will also be deleted",
@@ -3049,7 +3352,7 @@ class MapShow extends React.Component {
           style={{ margin: hp('1%') }}
           keyExtractor={(item, index) => index}
         /> : <View style={{ justifyContent: 'center', alignItems: 'center', height: hp("42.5%") }}>
-            <Text style={{ color: 'grey', fontSize: 18 }}>No alerts found!</Text>
+            <Text style={{ color: 'grey', fontSize: wp('4.5%') }}>No alerts found!</Text>
           </View>}
 
         {this.state.organistaion ?
@@ -3072,7 +3375,7 @@ class MapShow extends React.Component {
 
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
-                    <Text style={{ color: '#0290ea', fontSize: 14 }}>Near By Alerts</Text>
+                    <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Near By Alerts</Text>
                   </View>
 
                 </TouchableOpacity>
@@ -3091,7 +3394,7 @@ class MapShow extends React.Component {
                 }}>
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
-                    <Text style={{ color: "black", fontSize: 14 }}>Near By Alerts</Text>
+                    <Text style={{ color: "black", fontSize: wp('3.5%') }}>Near By Alerts</Text>
                   </View>
                 </TouchableOpacity>
               }
@@ -3112,7 +3415,7 @@ class MapShow extends React.Component {
                 }}>
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
-                    <Text style={{ color: '#0290ea', fontSize: 14 }}>Organizational Alerts</Text>
+                    <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Organizational Alerts</Text>
                   </View>
                 </TouchableOpacity>
                 :
@@ -3127,7 +3430,7 @@ class MapShow extends React.Component {
                 }}>
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
-                    <Text style={{ color: "black", fontSize: 14 }}>Organizational Alerts</Text>
+                    <Text style={{ color: "black", fontSize: wp('3.5%') }}>Organizational Alerts</Text>
                   </View>
                 </TouchableOpacity>}
             </View>
@@ -3151,6 +3454,8 @@ class MapShow extends React.Component {
     // console.log("Inside render", this.props.phonenumberuser)
     // Adding Keyboard Eventlistner
 
+    const sampleData = ["Lucknow","Tamil","Himachal"]
+
     const _keyboardDidShow = () => {
       console.log("keyboard up")
     };
@@ -3158,18 +3463,153 @@ class MapShow extends React.Component {
     // console.log("Aditya here", this.props.personData.name)
     // console.log("markerssss", this.state.markers);
 
+    if(this.state.searchActive){
+      return(
+      //   <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
+      //   <TouchableOpacity onPress={
+      //     () => {
+      //       this.props.navigation.toggleDrawer();
+      //     }
+      //   }>
+      //     <Image
+      //       source={require('../assets/ham.png')}
+      //       style={{ height: hp("3.5%"), width: hp("3.5%") }}
+      //     />
+      //   </TouchableOpacity>
+
+      //   <View style={{ width: wp('4%') }}></View>
+      //   <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
+      //     <View style={{ width: wp('3%') }}></View>
+
+      //     <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+      //       placeholder="Search Location"
+      //       placeholderTextColor="#0290ea"
+      //       autoFocus={true}
+      //       value={this.state.search}
+      //       onChangeText={(text) => {
+      //         this.setState({ search: text })
+      //       }}
+      //     />                
+
+      //     <TouchableOpacity onPress={() => {
+      //       // console.log("search pressed")
+      //       var placeSearched = this.state.search
+      //       var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+      //       // console.log(" Searched Pressed " + placeSearched)
+      //       fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+      //         .then((response) => response.json())
+      //         .then((responseJson) => {
+      //           // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+      //           this.setState({
+      //             latitude: responseJson.results[0].geometry.location.lat,
+      //             longitude: responseJson.results[0].geometry.location.lng,
+      //             isSearch: true
+      //           })
+      //         })
+      //     }}>
+      //       <Image
+      //         source={require('../assets/search.png')}
+      //       />
+      //     </TouchableOpacity>
+      //     <View style={{ width: wp('5%'), height: hp('3%') }}></View>
+      //     <TouchableOpacity onPress={() => {
+      //       Geolocation.getCurrentPosition(
+      //         (position) => {
+      //           // console.log(position)
+      //           this.setState({
+      //             latitude: position.coords.latitude,
+      //             longitude: position.coords.longitude
+      //           })
+      //         }, (error) => alert(error.message),
+      //         {
+      //           enableHighAccuracy: false,
+      //           timeout: 5000,
+      //           maximumAge: 10000
+      //         })
+      //     }}>
+      //       <Image source={require('../assets/location.png')}
+      //         style={{ height: hp('3%'), width: wp('4%') }} />
+      //     </TouchableOpacity>
+      //   </View>
+      // </View>
+      <View style={{flex:1}}>
+        <TouchableOpacity
+        onPress={()=>{
+          this.setState({ searchActive : false })
+        }}
+        >
+         <Icon name = "arrow-back" color="#0290ea" size={30} style={{marginTop:hp('2%'),marginLeft:wp('3%')}} />
+        </TouchableOpacity>
+      <GooglePlacesAutocomplete
+      placeholder='Search Location'
+      fetchDetails = {true}
+      autoFocus = {true}
+      onPress={(data, details = null) => {
+        // 'details' is provided when fetchDetails = true
+        // console.log(data, details);
+        console.log("details are" , details.geometry.location)
+        var location = details.geometry.location
+        this.setState({
+          latitude : location.lat,
+          longitude : location.lng,
+          searchActive : false
+        })        
+        console.log("data is" ,data)
+      }}
+      query={{
+        key: 'AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc',
+        language: 'en',
+      }}
+      styles={{
+        description:{
+          color:'#777'
+        },
+
+        textInputContainer: {
+          backgroundColor: 'rgba(0,0,0,0)',
+          borderTopWidth: 0,
+          borderBottomWidth: 0,
+          width:wp('90%'),
+          alignSelf:'center',
+          marginTop : hp('3%'),
+          color:'#777'
+        },
+        textInput: {
+          marginLeft: 0,
+          marginRight: 0,
+          height: 38,
+          color: '#777',
+          fontSize: 16,
+          placeholderTextColor : "#777"
+        },
+        predefinedPlacesDescription: {
+          color: '#777',
+        },
+      }}
+    />        
+      </View>
+
+
+      )
+    }
+
     if (this.state.latitude != null && this.state.markers != null) {
       // console.log("MArkers: ", this.state.markers)
       const shift = this.mode.interpolate({
         inputRange: [0, 1],
         outputRange: [-1 * height / 2, 0]
       })
-      // console.log(this.state.markers)
+
+      const MarkerHeight = (height/2) - hp('8%')-18
+      const MarkerLeft = (width/2)-15
+      
+
       return (
         <View style={{ flex: 1 }}>
           <KeyboardAvoidingView style={{ flex: 1 }}>
+            
             {/* Location Icon permanent */}
-            <Icon name="location-on" size={30} style={{ zIndex: 10, top: hp('40%'), left: wp('46%'), position: 'absolute' }} color="#e85433" />
+            <Icon name="location-on" size={30} style={{ zIndex: 10, top: MarkerHeight, left: MarkerLeft, position: 'absolute' }} color="#e85433" />
             <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
               <TouchableOpacity onPress={
                 () => {
@@ -3185,29 +3625,40 @@ class MapShow extends React.Component {
               <View style={{ width: wp('4%') }}></View>
               <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
                 <View style={{ width: wp('3%') }}></View>
-                <TextInput style={{ width: '75%', zIndex: 1 }}
+                <TouchableOpacity 
+                onPress={
+                  ()=>{
+                    this.setState({ searchActive : true })
+                  }
+                }
+                >
+                <TextInput style={{ width: wp('60%'), zIndex: 1 }}
                   placeholder="Search Location ..."
                   placeholderTextColor="#0290ea"
                   value={this.state.search}
+                  editable = {false}
                   onChangeText={(text) => {
                     this.setState({ search: text })
                   }}
-                />
+                />                  
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => {
                   // console.log("search pressed")
-                  var placeSearched = this.state.search
-                  var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
-                  // console.log(" Searched Pressed " + placeSearched)
-                  fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
-                    .then((response) => response.json())
-                    .then((responseJson) => {
-                      // console.log(JSON.stringify(responseJson.results[0].geometry.location))
-                      this.setState({
-                        latitude: responseJson.results[0].geometry.location.lat,
-                        longitude: responseJson.results[0].geometry.location.lng,
-                        isSearch: true
-                      })
-                    })
+                  // var placeSearched = this.state.search
+                  // var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+                  // // console.log(" Searched Pressed " + placeSearched)
+                  // fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+                  //   .then((response) => response.json())
+                  //   .then((responseJson) => {
+                  //     // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+                  //     this.setState({
+                  //       latitude: responseJson.results[0].geometry.location.lat,
+                  //       longitude: responseJson.results[0].geometry.location.lng,
+                  //       isSearch: true
+                  //     })
+                  //   })
+                  this.setState({ searchActive : true })
                 }}>
                   <Image
                     source={require('../assets/search.png')}
@@ -3324,7 +3775,7 @@ class MapShow extends React.Component {
           {/* <Animated.View style={{position:'absolute',bottom:shift,width:"100%"}}>
                 <GestureRecognizer onSwipeUp={this.handdlePress}
                 onSwipeDown={this.handdlePress1} style={{flex:1,justifyContent:'center',alignContent:'center',alignItems:'center'}}>
-                  <TouchableOpacity onPress={() => console.log("Hey")} style={{alignSelf:'flex-end',height:hp("9%"),width:wp("22%")}}>
+                  <TouchableOpacity onPress={() => console.log("Hey")} style={{alignSelf:'flex-end',height:hp("9%"),width:wp("wp('5.6%')%")}}>
                         <Image source={require("../assets/sos.png")} />
                     </TouchableOpacity>
                     <View style={{width:'100%',backgroundColor:'grey',justifyContent:'center',alignItems:'center',flex:1,height:300}}>
@@ -3339,7 +3790,7 @@ class MapShow extends React.Component {
             <GestureRecognizer onSwipeUp={this.handdlePress}
               onSwipeDown={this.handdlePress1}
               style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: wp('5%') }}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate("Sosmain", { latitude: this.latitude1, longitude: this.longitude1 })} style={{ alignSelf: 'flex-end', height: hp("6%"), width: wp("20%"), marginBottom: wp('4%') }}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate("Sosmain", { latitude: this.latitude1, longitude: this.longitude1 })} style={{ alignSelf: 'flex-end', height: hp("8%"), width: wp("20%"), marginBottom: wp('4%'), }}>
                 <Image source={require("../assets/sos.png")} />
               </TouchableOpacity>
               {/* <View style={{width:wp('100%'),height:hp('2%'),backgroundColor:"white",marginBottom:wp('1%'),elevation:2}}>
@@ -3381,29 +3832,40 @@ class MapShow extends React.Component {
             <View style={{ width: wp('4%') }}></View>
             <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
               <View style={{ width: wp('3%') }}></View>
-              <TextInput style={{ width: '75%', zIndex: 1 }}
+              <TouchableOpacity
+              onPress = {
+                ()=>{
+                  this.setState({ searchActive : true })
+                }
+              }
+              >
+              <TextInput style={{ width: wp('60%'), zIndex: 1 }}
                 placeholder="Search Location"
                 placeholderTextColor="#0290ea"
+                editable = {false}
                 value={this.state.search}
                 onChangeText={(text) => {
                   this.setState({ search: text })
                 }}
-              />
+              />                
+              </TouchableOpacity>
+
               <TouchableOpacity onPress={() => {
                 // console.log("search pressed")
-                var placeSearched = this.state.search
-                var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
-                // console.log(" Searched Pressed " + placeSearched)
-                fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
-                  .then((response) => response.json())
-                  .then((responseJson) => {
-                    // console.log(JSON.stringify(responseJson.results[0].geometry.location))
-                    this.setState({
-                      latitude: responseJson.results[0].geometry.location.lat,
-                      longitude: responseJson.results[0].geometry.location.lng,
-                      isSearch: true
-                    })
-                  })
+                // var placeSearched = this.state.search
+                // var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+                // // console.log(" Searched Pressed " + placeSearched)
+                // fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+                //   .then((response) => response.json())
+                //   .then((responseJson) => {
+                //     // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+                //     this.setState({
+                //       latitude: responseJson.results[0].geometry.location.lat,
+                //       longitude: responseJson.results[0].geometry.location.lng,
+                //       isSearch: true
+                //     })
+                //   })
+                this.setState({ searchActive : true })
               }}>
                 <Image
                   source={require('../assets/search.png')}
@@ -3457,7 +3919,7 @@ class MapShow extends React.Component {
             <GestureRecognizer onSwipeUp={this.handdlePress}
               onSwipeDown={this.handdlePress1}
               style={{ flex: 1, justifyContent: 'center', alignContent: 'center', alignItems: 'center', borderRadius: wp('5%') }}>
-              <TouchableOpacity onPress={() => console.log("Hey")} style={{ alignSelf: 'flex-end', height: hp("6%"), width: wp("20%"), marginBottom: wp('4%') }}>
+              <TouchableOpacity onPress={() => console.log("Hey")} style={{ alignSelf: 'flex-end', height: hp("8%"), width: wp("20%"), marginBottom: wp('4%') }}>
                 <Image source={require("../assets/sos.png")} />
               </TouchableOpacity>
               {/* <View style={{width:wp('100%'),height:hp('2%'),backgroundColor:"white",marginBottom:wp('1%'),elevation:2}}>
@@ -3475,7 +3937,8 @@ class MapShow extends React.Component {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator />
-          <Text>Please Wait</Text><Text>-or-</Text><Text>Check Your Internet Connection And Restart Your App Again</Text>
+          {/* <Text>Please Wait</Text><Text>-or-</Text><Text>Check Your Internet Connection And Restart Your App Again</Text> */}
+          <Text> { this.state.messageToDisplay } </Text>
         </View>);
     }
   }
@@ -3797,6 +4260,8 @@ const generatedMapStyle = [{
   ]
 }
 ]
+
+
 
 
 

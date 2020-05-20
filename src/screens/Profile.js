@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import db from '../routes/config'
 import * as firebase from 'firebase'
 import { connect } from 'react-redux';
+import {_} from 'lodash';
+
 
 import CryptoJS from "react-native-crypto-js";
 import { ThemeProvider } from 'react-native-elements';
@@ -12,6 +14,7 @@ import { ThemeProvider } from 'react-native-elements';
 
 
 class Profile extends React.Component {
+    b64_table = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
     constructor(props) {
         super(props)
         this.state = {
@@ -61,6 +64,70 @@ class Profile extends React.Component {
         })
 
     }
+    encode(key, data) {
+        console.log(key,data)
+        data = this.xor_encrypt(key, data);
+        return this.b64_encode(data);
+      }
+      decode(key, data) {
+        data = this.b64_decode(data);
+        return this.xor_decrypt(key, data);
+      }
+   
+  
+   
+  b64_encode(data) {
+      var o1, o2, o3, h1, h2, h3, h4, bits, r, i = 0, enc = "";
+      if (!data) { return data; }
+      do {
+        o1 = data[i++];
+        o2 = data[i++];
+        o3 = data[i++];
+        bits = o1 << 16 | o2 << 8 | o3;
+        h1 = bits >> 18 & 0x3f;
+        h2 = bits >> 12 & 0x3f;
+        h3 = bits >> 6 & 0x3f;
+        h4 = bits & 0x3f;
+        enc += this.b64_table.charAt(h1) + this.b64_table.charAt(h2) + this.b64_table.charAt(h3) + this.b64_table.charAt(h4);
+      } while (i < data.length);
+      r = data.length % 3;
+      return (r ? enc.slice(0, r - 3) : enc) + "===".slice(r || 3);
+    }
+   b64_decode(data) {
+      var o1, o2, o3, h1, h2, h3, h4, bits, i = 0, result = [];
+      if (!data) { return data; }
+      data += "";
+      do {
+        h1 = this.b64_table.indexOf(data.charAt(i++));
+        h2 = this.b64_table.indexOf(data.charAt(i++));
+        h3 = this.b64_table.indexOf(data.charAt(i++));
+        h4 = this.b64_table.indexOf(data.charAt(i++));
+        bits = h1 << 18 | h2 << 12 | h3 << 6 | h4;
+        o1 = bits >> 16 & 0xff;
+        o2 = bits >> 8 & 0xff;
+        o3 = bits & 0xff;
+        result.push(o1);
+        if (h3 !== 64) {
+          result.push(o2);
+          if (h4 !== 64) {
+            result.push(o3);
+          }
+        }
+      } while (i < data.length);
+      return result;
+    }
+   
+   xor_encrypt(key, data) {
+     console.log(data,key);
+      return _.map(data, function(c, i) {
+        return c.charCodeAt(0) ^ key.charCodeAt( Math.floor(i % key.length) );
+      });
+    }
+  xor_decrypt(key, data) {
+      return _.map(data, function(c, i) {
+        return String.fromCharCode( c ^ key.charCodeAt( Math.floor(i % key.length) ) );
+      }).join("");
+    }
     handleSignUp = () => {
         // if(this.state.category == "kirana" && this.state.category == "chemist"){
         //     this.setState({isVendor: true})
@@ -70,9 +137,8 @@ class Profile extends React.Component {
         if (this.isready && this.isPassword) {
 
             /*Variable to hold encrypted password  */
-            let Password_for_Db = CryptoJS.AES.encrypt(this.state.Password, 'U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=').toString();
+            let Password_for_Db = this.encode('U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=',this.state.password);
 
-            /*if user has opted for organization than data is stored in both the tables, organization and signupincomplete else only in signup incomplete*/
             if (this.state.category == "organization") {
                 firebase.database().ref('Organisation/' + this.state.Organisation + '/' + this.state.PhoneNumber).set({
                     name: this.state.name,
