@@ -183,7 +183,7 @@ export default class LoginScreen extends Component {
           {/* </View> */}
           {/* <View style={{width:wp("40%"),backgroundColor:'red'}}> */}
             <TouchableOpacity onPress={()=>{
-              this.props.navigation.navigate('SignUp')
+              this.props.navigation.navigate('Profile')
             }} style={{width:wp("30%")}}>
           <Text style={{fontSize:18,fontWeight:'bold',color:'#0091EA',marginLeft:wp('1%'),marginBottom:hp('1.5%')}}>Sign up</Text>              
             </TouchableOpacity>

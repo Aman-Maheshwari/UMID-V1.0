@@ -30,12 +30,18 @@ class Profile extends React.Component {
             City: '',
             State: '',
             isRegistered: false,
-            category: this.props.navigation.state.params.selectionComplete,
-            isAlert: false,
+            category: "organization",
+            isAlert: true,
             selected: '',
             pickerValue: '',
             pickerData: [],
-            showFlatList: true
+            showFlatList: true,
+            isPassword : true,
+            isConfirmPassword : true,
+            registeredPhoneNumbers : null,
+
+            message : 'Please fill all details correctly',
+            isNumber : true
 
             // isready : false,
             // isPassword : false,
@@ -48,6 +54,15 @@ class Profile extends React.Component {
     }
     arr = []
     // pickerData = ["jsdfhg","ksdjfhb","dsckjfhvg","other"]
+
+    UNSAFE_componentWillMount(){
+        firebase.database().ref("SignUpInComplete").on("value",snapshot =>{
+            var numbers = Object.keys(snapshot.val())
+            this.setState({
+                registeredPhoneNumbers : numbers
+            })
+        })
+    }
 
     componentDidMount() {
         //   console.log(this.props.navigation.state.params.selectionComplete)
@@ -134,10 +149,22 @@ class Profile extends React.Component {
         // }
         // this.checkIsReady()
         console.log("handling signup")
-        if (this.isready && this.isPassword) {
+        if(this.state.registeredPhoneNumbers.indexOf(this.state.PhoneNumber) >= 0){
+            Alert.alert("A user with this phone number already exists, Please try again.")
+            this.setState({
+                PhoneNumber : '',
+                Password : '',
+                ConfirmPassword : '',
+                Organisation : '',
+                name : '',
+            })
+        }else{
+
+        if (this.state.isNumber && this.state.isConfirmPassword && this.state.isPassword && this.state.isAlert && this.state.Organisation.length!=0) {
 
             /*Variable to hold encrypted password  */
-            let Password_for_Db = this.encode('U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=',this.state.password);
+            let Password_for_Db = this.encode('U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=',this.state.Password);
+            console.log(Password_for_Db , this.state.Password)
 
             if (this.state.category == "organization") {
                 firebase.database().ref('Organisation/' + this.state.Organisation + '/' + this.state.PhoneNumber).set({
@@ -186,35 +213,56 @@ class Profile extends React.Component {
             // console.log("Navigating to OTP")
         }
         else {
-            this.setState({
-                isAlert: true
-            })
+            Alert.alert('Please fill all details correctly.')
         }
+    }
 
     }
     checkIsReady = () => {
-        this.setState({
-            isAlert: false
-        })
-        if (this.state.name.length != 0 && this.state.PhoneNumber.length != 0 && this.state.Password.length != 0 && this.state.ConfirmPassword.length != 0) {
-            if (this.state.Password === this.state.ConfirmPassword) {
-                // this.setState({isPassword : true})
-                this.isPassword = true
-            } else {
-                // this.setState({isPassword:false})
-                this.isPassword = false
-            }
-            // this.setState({isready : true})
-            this.isready = true
-            // this.handleSignUp()
-        } else {
-            // this.setState({isready:false,
-            // isPassword:false})
-            this.isready = false
-            this.isPassword = false
-            // this.handleSignUp()
+
+        // if (this.state.name.length != 0 && this.state.PhoneNumber.length != 0 && this.state.Password.length != 0 && this.state.ConfirmPassword.length != 0) {
+        //     if (this.state.Password === this.state.ConfirmPassword) {
+        //         // this.setState({isPassword : true})
+        //         this.isPassword = true
+        //     } else {
+        //         // this.setState({isPassword:false})
+        //         this.isPassword = false
+        //     }
+        //     // this.setState({isready : true})
+        //     this.isready = true
+        //     // this.handleSignUp()
+        // } else {
+        //     // this.setState({isready:false,
+        //     // isPassword:false})
+        //     this.isready = false
+        //     this.isPassword = false
+        //     // this.handleSignUp()
+        // }
+        // console.log(this.state.registeredPhoneNumbers.indexOf(this.state.PhoneNumber))
+        if(this.state.name.length ==0 ){
+            this.setState({
+                isAlert : false,
+                message : 'Please Fill your name correctly.'
+            })
+        }else if(this.state.PhoneNumber.length != 10){
+            this.setState({
+                isAlert : false,
+                message : 'Please Enter a 10 digit Phone number.'
+            })
+        }else if(this.state.Password.length == 0 || this.state.ConfirmPassword.length == 0){
+            this.setState({
+                isAlert : false,
+                message : 'Please enter a valid password.'
+            })
         }
-        this.handleSignUp()
+        else{
+            this.setState({
+                isAlert : true,
+                // message : 'All details filled correctly.'
+            })
+            this.handleSignUp()
+
+        }
 
     }
     ListViewItemSeparator = () => {
@@ -254,21 +302,21 @@ class Profile extends React.Component {
                 />
                 {/* <View style={{ flex: 0.38 }}> */}
                 {this.state.showFlatList ?
-                    <View style={{ maxHeight: hp('13%') }} >
+                    <View style={{ maxHeight: hp('13%'),width: '90%' }} >
                         <FlatList
                             keyboardShouldPersistTaps={'always'}
                             data={this.state.dataSource}
                             ItemSeparatorComponent={this.ListViewItemSeparator}
                             renderItem={({ item }) => (
-                                <TouchableOpacity onPress={() => {
+                                <TouchableOpacity 
+                                onPress={() => {
                                     console.log("clicked");
-
                                     this.setState({
                                         Organisation: item,
                                         showFlatList: false,
                                     })
                                 }}>
-                                    <View style={{ flexDirection: "column" }}>
+                                    <View style={{ flexDirection: "column", }}>
                                         {/* <Text numberOfLines={1} style={{fontSize:18,paddingLeft:wp('4%'),marginTop:wp('2%')}}>{item.user.name}</Text> */}
                                         <Text numberOfLines={3} ellipsizeMode="middle" style={{ fontSize: 18 }}>{item}</Text>
                                     </View>
@@ -325,7 +373,7 @@ class Profile extends React.Component {
                     <View style={{ height: hp('8%'), backgroundColor: "#0290ea" }}>
                         <TouchableOpacity onPress={
                             () => {
-                                this.props.navigation.navigate('WhoYouAre')
+                                this.props.navigation.navigate('Login')
                             }
 
                         }
@@ -333,7 +381,7 @@ class Profile extends React.Component {
                         >
                             <Image
                                 source={require('../assets/back.png')}
-                                style={{ position: 'absolute', top: 15, left: 10, zIndex: 2, }}
+                                style={{ position: 'absolute', top: 7, left: 10, zIndex: 2, }}
                             />
                         </TouchableOpacity>
 
@@ -366,6 +414,23 @@ class Profile extends React.Component {
                         <TextInput style={styles.TextInput}
                             value={this.state.PhoneNumber}
                             onChangeText={(text) => {
+                                function onlyDigits(s) {
+                                    for (let i = s.length - 1; i >= 0; i--) {
+                                      const d = s.charCodeAt(i);
+                                      if (d < 48 || d > 57) return false
+                                    }
+                                    return true
+                                  }
+                                  if(onlyDigits(text)){
+                                      this.setState({
+                                          isNumber : true
+                                      })
+                                  }else{
+                                      this.setState({
+                                          isNumber : false,
+                                          message : 'Phone Number should contain only digits'
+                                      })
+                                  }
                                 this.setState({
                                     PhoneNumber: text
                                 })
@@ -399,6 +464,16 @@ class Profile extends React.Component {
                                 this.setState({
                                     Password: text
                                 })
+                                if(text.length > 0){
+                                    this.setState({
+                                        isPassword : true
+                                    })
+                                }else{
+                                    this.setState({
+                                        isPassword : false,
+                                        message : 'Please enter a valid password.'
+                                    })
+                                }
                             }}
                             secureTextEntry={true}
                         />
@@ -411,18 +486,29 @@ class Profile extends React.Component {
                                 this.setState({
                                     ConfirmPassword: text
                                 })
+                                if(this.state.Password == text){
+                                    this.setState({
+                                        isConfirmPassword : true,
+                                    })
+                                }else{
+                                    this.setState({
+                                        isConfirmPassword : false,
+                                        message : 'Passwords should match.'
+
+                                    })
+                                }
                             }}
                             secureTextEntry={true}
                         />
                         {
-                            this.state.isAlert ?
-                                <Text style={{ color: 'red', fontSize: 12, marginTop: hp('1%') }}>Please Fill all details correctly.</Text> :
-                                <Text style={{ fontSize: 12, marginTop: hp('1%') }}></Text>
+                            this.state.isPassword && this.state.isConfirmPassword && this.state.isNumber && this.state.isAlert ?
+                                <Text style={{ color: 'red', fontSize: 12, marginTop: hp('1%') }}></Text> :
+                                <Text style={{ fontSize: 12, marginTop: hp('1%'),color : 'red' }}> {this.state.message} </Text>
                         }
                         <TouchableOpacity onPress={() => {
                             // this.handleSignUp()
                             this.checkIsReady()
-                            console.log(this.state);
+                            // console.log(this.state);
                             this.props.dispatch({ type: 'UPLOAD_TEXT_DONE' })
 
 

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, Alert, Keyboard,TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView, Linking, BackHandler, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, Keyboard, TouchableOpacity, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView, Linking, BackHandler, ActivityIndicator } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import * as firebase from 'firebase'
 import { db } from '../routes/config';
@@ -8,10 +8,10 @@ import food from '../assets/food.json';
 import medical from '../assets/medical.json';
 import { Directions } from 'react-native-gesture-handler';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createAppContainer,createSwitchNavigator } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 
 
-export default class FoodSupplies extends React.Component{
+export default class FoodSupplies extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,16 +21,16 @@ export default class FoodSupplies extends React.Component{
         this.arrayholder = medical
     }
     ListViewItemSeparator = () => {
-    //Item sparator view
-    return (
-        <View
-        style={{
-            width: '100%',
-            borderBottomWidth: 0.25,
-            borderBottomColor: "grey",
-        }}
-        />
-    );
+        //Item sparator view
+        return (
+            <View
+                style={{
+                    width: '100%',
+                    borderBottomWidth: 0.25,
+                    borderBottomColor: "grey",
+                }}
+            />
+        );
     };
     SearchFilterFunction(text) {
         //passing the inserted text in textinput
@@ -82,19 +82,19 @@ export default class FoodSupplies extends React.Component{
             // const categories = [...new Set(foundObj.map(data => { data.Sno, data.OrgName, data.RegName, data.State, data.Email, data.City, data.ContactNumber }))]
             foundObj = foundObj.filter((thing, index, self) =>
                 index === self.findIndex((t) => (
-                    t.Sno === thing.Sno && 
-                    t.OrgName === thing.OrgName && 
-                    t.RegisteredName === thing.RegisteredName && 
-                    t.State === thing.State && 
-                    t.Email === thing.Email && 
-                    t.City === thing.City && 
+                    t.Sno === thing.Sno &&
+                    t.OrgName === thing.OrgName &&
+                    t.RegisteredName === thing.RegisteredName &&
+                    t.State === thing.State &&
+                    t.Email === thing.Email &&
+                    t.City === thing.City &&
                     t.ContactNumber === thing.ContactNumber
                 ))
             )
             console.log("categories = ", foundObj);
         });
-        console.log("this.newData= ",this.newData);
-        
+        console.log("this.newData= ", this.newData);
+
         this.setState({
             dataSource: foundObj,
         }, () => {
@@ -104,61 +104,71 @@ export default class FoodSupplies extends React.Component{
         // console.log("newdata= ",this.newData)
     }
     render() {
-        return(
-        <View style={styles.container}>
-            <View style={{flexDirection:'row',marginLeft:wp("3%")}}>
-            <View style={{height: hp('5%'),justifyContent:'center',alignItems:'center',marginRight:wp("3%")}}>
-            <Image
-                    source={require('../assets/search.png')}
-                  />
+        return (
+            <View style={styles.container}>
+                <View style={{ flexDirection: 'row', marginLeft: wp("3%") }}>
+                    <View style={{ height: hp('5%'), justifyContent: 'center', alignItems: 'center', marginRight: wp("3%") }}>
+                        <Image
+                            source={require('../assets/search.png')}
+                        />
+                    </View>
+
+                    <TextInput style={styles.TextInput}
+                        placeholder="Search"
+                        placeholderTextColor="#0290ea"
+                        onChangeText={(text) => {
+                            this.SearchFilterFunction(text)
+                            this.setState({
+                                showFlatList: true,
+                            })
+                        }}
+                    />
+                </View>
+                {this.state.dataSource.length != 0 ?
+                    <FlatList
+                        data={this.state.dataSource}
+                        ItemSeparatorComponent={this.ListViewItemSeparator}
+                        renderItem={({ item }) => (
+                            <View>
+                                {console.log("item = ", item)
+                                }
+                                {item.RegisteredName ?
+                                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', margin: wp("4%"), height: hp("8%") }}>
+                                        <View style={{ width: wp("80%") }}>
+                                            <Text numberOfLines={2} adjustsFontSizeToFit style={{ fontSize: 18, fontWeight: 'bold' }}>{item.RegisteredName}</Text>
+                                            <Text numberOfLines={2} adjustsFontSizeToFit>{item.Email}</Text>
+                                            <Text style={{ fontSize: 14 }}>{item.City},{item.State}</Text>
+                                        </View>
+                                        <View>
+                                            <TouchableOpacity onPress={() => {
+                                                Linking.openURL(`tel:${item.ContactNumber}`)
+                                            }}>
+                                                <Image source={require('../assets/ios-call.png')} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View> :
+                                    <View />}
+                            </View>
+                        )}
+                        keyExtractor={(item, index) => index}
+                    />
+
+                    :
+
+                    <View>
+                         <Text numberOfLines={2} adjustsFontSizeToFit style={{ fontSize: 18, fontWeight: 'bold',textAlign:"center",alignItems:"center",marginTop:hp('5%')}}>No data found</Text>
+                    </View>
+                }
             </View>
-            
-            <TextInput style={styles.TextInput}
-                placeholder="Search"
-                placeholderTextColor="#0290ea"
-                    onChangeText={(text) => {
-                        this.SearchFilterFunction(text)
-                        this.setState({
-                            showFlatList: true,
-                        })
-                    }}
-                />
-                </View>
-        <FlatList
-            data={this.state.dataSource}
-            ItemSeparatorComponent={this.ListViewItemSeparator}
-            renderItem={({item}) =>(
-                <View>
-                {item.RegisteredName ? 
-                <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' ,margin:wp("4%"),height:hp("8%")}}>
-                <View style={{width:wp("80%")}}>
-                    <Text numberOfLines= {2} adjustsFontSizeToFit style={{fontSize:18,fontWeight:'bold'}}>{item.RegisteredName}</Text>
-                <Text numberOfLines= {2} adjustsFontSizeToFit>{item.Email}</Text>
-                    <Text style={{fontSize:14}}>{item.City},{item.State}</Text>
-                </View>
-                <View>
-                    <TouchableOpacity onPress={() => {
-                        Linking.openURL(`tel:${item.ContactNumber}`)
-                        }}>
-                        <Image source={require('../assets/ios-call.png')}/>
-                    </TouchableOpacity>
-                </View>
-            </View>:
-            <View />}
-            </View>
-            )}
-            keyExtractor={(item, index) => index}
-        />
-        </View>
         );
     }
 }
 const styles = StyleSheet.create({
     container: {
-        flex:1,
+        flex: 1,
     },
     TextInput: {
-        alignSelf:'center',
+        alignSelf: 'center',
         width: '90%',
         borderColor: 'grey',
         borderWidth: 1,
