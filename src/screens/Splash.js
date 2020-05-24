@@ -178,7 +178,7 @@ This is an older version of the app, please update the app.
       return res.json()
     }).then(res => {
       console.log(res.version)
-      if(res.version <= 8){
+      if(res.version <= 9){
         this.setState({
             versionCheck : true
         })

@@ -157,6 +157,7 @@ class Profile extends React.Component {
                 ConfirmPassword : '',
                 Organisation : '',
                 name : '',
+                Age:''
             })
         }else{
 
@@ -408,9 +409,42 @@ class Profile extends React.Component {
                             }}
 
                         />
+                        {/***********Added age to the form************/}
+                        <Text style={styles.TextLabels}>
+                           Age *
+                         </Text>
+
+                         <TextInput style={styles.TextInput}
+                            value={this.state.Age}
+                            onChangeText={(text) => {
+                                function onlyDigits(s) {
+                                    for (let i = s.length - 1; i >= 0; i--) {
+                                      const d = s.charCodeAt(i);
+                                      if (d < 48 || d > 57) return false
+                                    }
+                                    return true
+                                  }
+                                  if(onlyDigits(text) && (parseInt(text)<110)){
+                                      this.setState({
+                                          isAge : true
+                                      })
+                                  }else{
+                                      this.setState({
+                                          isAge : false,
+                                          message : 'Age must be less than 110'
+                                      })
+                                  }
+                                this.setState({
+                                    Age: text
+                                })
+                               
+                            }}
+                            keyboardType="number-pad"
+                        />
+
                         <Text style={styles.TextLabels}>
                             Phone Number *
-            </Text>
+                         </Text>
                         <TextInput style={styles.TextInput}
                             value={this.state.PhoneNumber}
                             onChangeText={(text) => {
@@ -501,7 +535,7 @@ class Profile extends React.Component {
                             secureTextEntry={true}
                         />
                         {
-                            this.state.isPassword && this.state.isConfirmPassword && this.state.isNumber && this.state.isAlert ?
+                            this.state.isPassword && this.state.isConfirmPassword && this.state.isNumber && this.state.isAlert && this.state.isAge ?
                                 <Text style={{ color: 'red', fontSize: 12, marginTop: hp('1%') }}></Text> :
                                 <Text style={{ fontSize: 12, marginTop: hp('1%'),color : 'red' }}> {this.state.message} </Text>
                         }

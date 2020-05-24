@@ -1514,19 +1514,20 @@
 
 //                 <TouchableOpacity onPress={() => {
 //                   // console.log("search pressed")
-//                   var placeSearched = this.state.search
-//                   var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
-//                   // console.log(" Searched Pressed " + placeSearched)
-//                   fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
-//                     .then((response) => response.json())
-//                     .then((responseJson) => {
-//                       // console.log(JSON.stringify(responseJson.results[0].geometry.location))
-//                       this.setState({
-//                         latitude: responseJson.results[0].geometry.location.lat,
-//                         longitude: responseJson.results[0].geometry.location.lng,
-//                         isSearch: true
-//                       })
-//                     })
+//                   // var placeSearched = this.state.search
+//                   // var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+//                   // // console.log(" Searched Pressed " + placeSearched)
+//                   // fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+//                   //   .then((response) => response.json())
+//                   //   .then((responseJson) => {
+//                   //     // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+//                   //     this.setState({
+//                   //       latitude: responseJson.results[0].geometry.location.lat,
+//                   //       longitude: responseJson.results[0].geometry.location.lng,
+//                   //       isSearch: true
+//                   //     })
+//                   //   })
+//                   this.setState({ searchActive : true })
 //                 }}>
 //                   <Image
 //                     source={require('../assets/search.png')}
@@ -1720,19 +1721,20 @@
 
 //               <TouchableOpacity onPress={() => {
 //                 // console.log("search pressed")
-//                 var placeSearched = this.state.search
-//                 var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
-//                 // console.log(" Searched Pressed " + placeSearched)
-//                 fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
-//                   .then((response) => response.json())
-//                   .then((responseJson) => {
-//                     // console.log(JSON.stringify(responseJson.results[0].geometry.location))
-//                     this.setState({
-//                       latitude: responseJson.results[0].geometry.location.lat,
-//                       longitude: responseJson.results[0].geometry.location.lng,
-//                       isSearch: true
-//                     })
-//                   })
+//                 // var placeSearched = this.state.search
+//                 // var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+//                 // // console.log(" Searched Pressed " + placeSearched)
+//                 // fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+//                 //   .then((response) => response.json())
+//                 //   .then((responseJson) => {
+//                 //     // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+//                 //     this.setState({
+//                 //       latitude: responseJson.results[0].geometry.location.lat,
+//                 //       longitude: responseJson.results[0].geometry.location.lng,
+//                 //       isSearch: true
+//                 //     })
+//                 //   })
+//                 this.setState({ searchActive : true })
 //               }}>
 //                 <Image
 //                   source={require('../assets/search.png')}
@@ -2155,6 +2157,8 @@ class MapShow extends React.Component {
     this.state = {
       latitude: null,
       longitude: null,
+      latitudeMain: null,
+      longitudeMain: null,
       error: null,
       markers: null,
       check: true,
@@ -2208,6 +2212,8 @@ class MapShow extends React.Component {
             (position) => {
               // console.log(position)
               this.setState({
+                latitudeMain: position.coords.latitude,
+                longitudeMain: position.coords.longitude,
                 latitude: position.coords.latitude,
                 longitude: position.coords.longitude
               })
@@ -2711,11 +2717,11 @@ class MapShow extends React.Component {
                     item.category == "Emotional Support" ? <View>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                         <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: wp('5.6%'), marginLeft: 10, fontWeight: 'bold' }}>
+                          <Text style={{ fontSize: wp('5%'), marginLeft: 10, fontWeight: 'bold' }}>
                             Anonymous
                     </Text>
                           <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                            {item.category}
+                          Category: {item.category}
                           </Text>
                         </View>
 
@@ -2815,7 +2821,7 @@ class MapShow extends React.Component {
                         {/* changing to blue color of text of selected marker */}
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                           <View style={{ width: wp("50%") }}>
-                            <Text style={{ fontSize: wp('5.6%'), marginLeft: 10, fontWeight: 'bold' }}>
+                            <Text style={{ fontSize: wp('5%'), marginLeft: 10, fontWeight: 'bold' }}>
                               {item.name}
                             </Text>
                             <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
@@ -2924,11 +2930,11 @@ class MapShow extends React.Component {
                     item.category == "Emotional Support" ? <View>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                         <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
                             Anonymous
                     </Text>
                           <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                            {item.category}
+                          Category: {item.category}
                           </Text>
                         </View>
                         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -3033,7 +3039,7 @@ class MapShow extends React.Component {
                       <View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                           <View style={{ width: wp("50%") }}>
-                            <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
+                            <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
                               {item.name}
                             </Text>
                             <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
@@ -3140,11 +3146,11 @@ class MapShow extends React.Component {
                   item.category == "Emotional Support" ? <View>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                       <View style={{ width: wp("50%") }}>
-                        <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
+                        <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
                           Anonymous
                     </Text>
                         <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.category}
+                        Category: {item.category}
                         </Text>
                       </View>
                       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -3239,7 +3245,7 @@ class MapShow extends React.Component {
                   </View> : <View>
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                         <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: wp('5.6%'), marginLeft: 10 }}>
+                          <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
                             {item.name}
                           </Text>
                           <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
@@ -3375,7 +3381,9 @@ class MapShow extends React.Component {
 
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
-                    <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Near By Alerts</Text>
+                    {/* <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Near By Alerts</Text> */}
+                                        <Text style={{ fontSize: wp('3.5%') }}>Near By Alerts</Text>
+
                   </View>
 
                 </TouchableOpacity>
@@ -3394,7 +3402,9 @@ class MapShow extends React.Component {
                 }}>
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
-                    <Text style={{ color: "black", fontSize: wp('3.5%') }}>Near By Alerts</Text>
+                    {/* <Text style={{ color: "black", fontSize: wp('3.5%') }}>Near By Alerts</Text> */}
+                    <Text style={{fontSize: wp('3.5%') }}>Near By Alerts</Text>
+
                   </View>
                 </TouchableOpacity>
               }
@@ -3415,7 +3425,8 @@ class MapShow extends React.Component {
                 }}>
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
-                    <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Organizational Alerts</Text>
+                    {/* <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Organizational Alerts</Text> */}
+                    <Text style={{fontSize: wp('3.5%') }}>Organizational Alerts</Text>
                   </View>
                 </TouchableOpacity>
                 :
@@ -3430,7 +3441,9 @@ class MapShow extends React.Component {
                 }}>
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
-                    <Text style={{ color: "black", fontSize: wp('3.5%') }}>Organizational Alerts</Text>
+                    {/* <Text style={{ color: "black", fontSize: wp('3.5%') }}>Organizational Alerts</Text> */}
+                    <Text style={{fontSize: wp('3.5%') }}>Organizational Alerts</Text>
+
                   </View>
                 </TouchableOpacity>}
             </View>
@@ -3600,8 +3613,8 @@ class MapShow extends React.Component {
         outputRange: [-1 * height / 2, 0]
       })
 
-      const MarkerHeight = (height/2) - hp('8%')-18
-      const MarkerLeft = (width/2)-15
+      const MarkerHeight = (height/2) - hp('9.7%')
+      const MarkerLeft = (width/2)-wp("3.7%")
       
 
       return (
@@ -3766,7 +3779,7 @@ class MapShow extends React.Component {
               )}
               {<Marker pinColor="red" image="" onPress={() => console.log(this.state.markers)}
                 // onDragEnd={(e) => this.onMarkerDragEnd(e.nativeEvent.coordinate)} 
-                coordinate={{ latitude: this.state.latitude, longitude: this.state.longitude }}
+                coordinate={{ latitude: this.state.latitudeMain, longitude: this.state.longitudeMain }}
                 title="Your Location"
               // draggable
               ><Image source={require("../assets/locationpin.png")} style={{ height: hp("2%"), width: wp("4%") }} /></Marker>}
@@ -4260,6 +4273,8 @@ const generatedMapStyle = [{
   ]
 }
 ]
+
+
 
 
 
