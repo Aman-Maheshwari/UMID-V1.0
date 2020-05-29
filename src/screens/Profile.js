@@ -39,6 +39,7 @@ class Profile extends React.Component {
             isPassword : true,
             isConfirmPassword : true,
             registeredPhoneNumbers : null,
+            Age:'',
 
             message : 'Please fill all details correctly',
             isNumber : true
@@ -157,7 +158,7 @@ class Profile extends React.Component {
                 ConfirmPassword : '',
                 Organisation : '',
                 name : '',
-                Age:''
+                Age:'',
             })
         }else{
 
@@ -181,6 +182,7 @@ class Profile extends React.Component {
                     City: this.state.City,
                     State: this.state.State,
                     isRegistered: this.state.isRegistered,
+                    age:this.state.Age
                 })
             }
             firebase.database().ref('SignUpInComplete/' + this.state.PhoneNumber).set({
@@ -196,7 +198,8 @@ class Profile extends React.Component {
                 City: this.state.City,
                 State: this.state.State,
                 isRegistered: this.state.isRegistered,
-                BlockedCounter:0
+                BlockedCounter:0,
+                age:this.state.Age
             })
 
             console.log("data sent to firebase");
