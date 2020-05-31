@@ -46,14 +46,14 @@
 //       messageToDisplay : 'Loading...',
 //       searchActive : false,
 //       refreshing:false,
-      
+
 //     },
 //       this.position = null;
 //     this.longitude1 = null;
 //     this.latitude1 = null;
 
 //     console.disableYellowBox = true //disabling warning blocks
-    
+
 //     // var config = {
 //     //   apiKey: "AIzaSyBWwYhIPzdVi7uWtwvxDICGKxjAo7q0AAA",
 //     //   authDomain: "umid-80be5.firebaseapp.com",
@@ -71,13 +71,13 @@
 //       // console.log("data.json() = ",data.json());
 //     });
 
-    
+
 //     // async function requestUserPermission() {
 //     //   const authStatus = await messaging().requestPermission();
 //     //   const enabled =
 //     //     authStatus === AuthorizationStatus.AUTHORIZED ||
 //     //     authStatus === AuthorizationStatus.PROVISIONAL;
-    
+
 //     //   if (enabled) {
 //     //     console.log('Authorization status:', authStatus);
 //     //   }else{
@@ -124,7 +124,7 @@
 
 // _onRefresh =()=> {
 //     console.log("onrefresh");
-    
+
 //     this.setState({ refreshing: true });
 //     this.refresh().then(() => {
 
@@ -132,7 +132,7 @@
 //     }).catch(() => {
 //         console.log("Reerd"
 //         );
-        
+
 //     });
 // }
 
@@ -230,9 +230,9 @@
 //                   food_marker.push(data[i])
 //                 }
 //                 marker_to_display.push(data[i])
-                
+
 //               }
-              
+
 
 //             }
 //             // console.log("markers to display before sort= ",marker_to_display);
@@ -334,7 +334,7 @@
 //                               }
 //                             }
 //                           })//end of foreach loops
-                          
+
 //                           if (org_array.length != 0) {
 //                             // console.log("after end of for each= ", org_array);
 //                             this.setState({
@@ -641,12 +641,12 @@
 //           refreshing={this.state.refreshing}
 //           onRefresh={this._onRefresh}
 //           renderItem={({ item }) => (
-          
-            
+
+
 //             <View>
-        
+
 //               {
-                
+
 //                 this.state.isMarkerClicked ?
 
 //                   // now checking if marker clicked phone number equals the sos phone number, then change Font color to blue, else render normally
@@ -675,7 +675,7 @@
 //                           <View style={{flexDirection:'row',alignItems:'center'}}>
 
 //                             <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
- 
+
 
 //                             {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
 //                             <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
@@ -891,7 +891,7 @@
 
 //                             {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
 //                             <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                            
+
 //                           </View>  
 
 //                             :
@@ -1005,7 +1005,7 @@
 //                         </View>
 //                               :
 //                               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                
+
 //                                 <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
 //                                 <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
 //                                 </TouchableOpacity>                                 
@@ -1106,7 +1106,7 @@
 //                           <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
 
 //                               <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                            
+
 //                           </View>
 //                           :
 //                           <View style={{flexDirection:'row',alignItems:'center'}}>
@@ -1233,7 +1233,7 @@
 //                               }}>
 //                                 {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
 //                                 <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                                
+
 //                               </TouchableOpacity>
 //                             </View>
 //                           }
@@ -1557,12 +1557,12 @@
 
 //       const MarkerHeight = (height/2) - hp('9.7%')
 //       const MarkerLeft = (width/2)-wp("3.7%")
-      
+
 
 //       return (
 //         <View style={{ flex: 1 }}>
 //           <KeyboardAvoidingView style={{ flex: 1 }}>
-            
+
 //             {/* Location Icon permanent */}
 //             <Icon name="location-on" size={30} style={{ zIndex: 10, top: MarkerHeight, left: MarkerLeft, position: 'absolute' }} color="#e85433" />
 //             <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
@@ -2218,7 +2218,7 @@
 
 
 import * as React from 'react';
-import { StyleSheet, Text, View, Button, Alert, Keyboard, TouchableOpacity,RefreshControl, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView, Linking, BackHandler, ActivityIndicator,Picker } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert, Keyboard, TouchableOpacity, RefreshControl, Dimensions, Image, ScrollView, Animated, FlatList, TextInput, KeyboardAvoidingView, Linking, BackHandler, ActivityIndicator, Picker } from 'react-native';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import SlidingUpPanel from 'rn-sliding-up-panel'
@@ -2231,10 +2231,11 @@ import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
+// import messaging, { AuthorizationStatus } from '@react-native-firebase/messaging'
 // import {firebase as fb , messaging} from 'react-native-firebase';
 import Animate from '../screenprev/Animate';
 
-const { height , width } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 
 class MapShow extends React.Component {
   constructor(props) {
@@ -2261,45 +2262,41 @@ class MapShow extends React.Component {
       BlockedCounter: 0,
       isMarkerClicked: null, // to check if any marker is clicked YASH
       markerClickedid: null, // phone number of clicked marker YASH
-      messageToDisplay : 'Loading...',
-      searchActive : false,
-      refreshing:false,
-      isModalOpen : false,
-      foodTextColor : '#0290ea',
-      foodBgColor : '#c2dff0',
-      emTextColor : '#0290ea',
-      emBgColor : '#c2dff0',
-      othersTextColor : '#0290ea',
-      othersBgColor : '#c2dff0',
-      sosToDisplaySelector : ["food","Emotional Support","other"],
-      sosToDisplay : [],
+      messageToDisplay: 'Loading...',
+      searchActive: false,
+      refreshing: false,
+      isModalOpen: false,
+      foodTextColor: '#0290ea',
+      foodBgColor: '#c2dff0',
+      emTextColor: '#0290ea',
+      emBgColor: '#c2dff0',
+      othersTextColor: '#0290ea',
+      othersBgColor: '#c2dff0',
+      sosToDisplaySelector: ["food", "Emotional Support", "other"],
+      sosToDisplay: [],
     },
       this.position = null;
     this.longitude1 = null;
     this.latitude1 = null;
 
     console.disableYellowBox = true //disabling warning blocks
-    
-    // var config = {
-    //   apiKey: "AIzaSyBWwYhIPzdVi7uWtwvxDICGKxjAo7q0AAA",
-    //   authDomain: "umid-80be5.firebaseapp.com",
-    //   databaseURL: "https://umid-80be5.firebaseio.com",
-    //   projectId: "umid-80be5",
-    //   storageBucket: "umid-80be5.appspot.com",
-    //   messagingSenderId: "1012173456466",
-    //   appId: "1:1012173456466:web:4d05c4a7903f7108230b8b",
-    //   measurementId: "G-N9RLP7DQRG"
-    // };
+   
+   
+    // messaging().getToken().then((data) => {
+    //   console.log("data = ", data);
+    //   // console.log("data.json() = ",data.json());
+    // });
 
+    // messaging().setBackgroundMessageHandler(async remoteMessage => {
+    //   console.log('Message handled in the background!', remoteMessage);
+    // });
 
-
-    
     // async function requestUserPermission() {
     //   const authStatus = await messaging().requestPermission();
     //   const enabled =
     //     authStatus === AuthorizationStatus.AUTHORIZED ||
     //     authStatus === AuthorizationStatus.PROVISIONAL;
-    
+
     //   if (enabled) {
     //     console.log('Authorization status:', authStatus);
     //   }else{
@@ -2331,32 +2328,32 @@ class MapShow extends React.Component {
 
   refresh = () => {
     return new Promise((resolve, reject) => {
-        try {
-            this.callForInitialFetch()
-            // this.fetchCity()
-            setTimeout(() => {
-                resolve(true)
-            }, 2000);
-        } catch (error) {
-            reject(false)
-        }
+      try {
+        this.callForInitialFetch()
+        // this.fetchCity()
+        setTimeout(() => {
+          resolve(true)
+        }, 2000);
+      } catch (error) {
+        reject(false)
+      }
 
     })
-}
+  }
 
-_onRefresh =()=> {
+  _onRefresh = () => {
     console.log("onrefresh");
-    
+
     this.setState({ refreshing: true });
     this.refresh().then(() => {
 
-        this.setState({ refreshing: false });
+      this.setState({ refreshing: false });
     }).catch(() => {
-        console.log("Reerd"
-        );
-        
+      console.log("Reerd"
+      );
+
     });
-}
+  }
 
   callForInitialFetch = () => {
     RNAndroidLocationEnabler.promptForEnableLocationIfNeeded({ interval: 10000, fastInterval: 5000 })
@@ -2436,9 +2433,9 @@ _onRefresh =()=> {
               // console.log("type of object  = ", this.state.latitude, this.state.longitude, data[i].latitude, data[i].longitude)
               var dist = this.distance(this.state.latitude, this.state.longitude, data[i].latitude, data[i].longitude)
               // console.log("distance = ", dist);
-              data[i].distance=this.dist_meter
+              data[i].distance = this.dist_meter
               var dist_meter = dist * 1000;
-              data[i].distance=dist_meter
+              data[i].distance = dist_meter
               if (dist_meter < 1000000) {
                 // console.log("inside if")
                 this.setState({
@@ -2453,23 +2450,23 @@ _onRefresh =()=> {
                   food_marker.push(data[i])
                 }
                 marker_to_display.push(data[i])
-                
+
               }
-              
+
 
             }
             // console.log("markers to display before sort= ",marker_to_display);
-              marker_to_display.sort((a,b)=>{
-                return a.distance-b.distance
-              })
-              // console.log("markers to display after sort= ",marker_to_display);
+            marker_to_display.sort((a, b) => {
+              return a.distance - b.distance
+            })
+            // console.log("markers to display after sort= ",marker_to_display);
             // console.log("marker_to_display", marker_to_display);
             //markers and near by markers both hold same element
             this.setState({
               food_marker: food_marker,
               anonymous_marker: anonymous_marker,
               markers: marker_to_display,
-              sosToDisplay : marker_to_display,
+              sosToDisplay: marker_to_display,
               near_by_marker: marker_to_display,
               all_markers: data,
             })
@@ -2558,7 +2555,7 @@ _onRefresh =()=> {
                               }
                             }
                           })//end of foreach loops
-                          
+
                           if (org_array.length != 0) {
                             // console.log("after end of for each= ", org_array);
                             this.setState({
@@ -2584,7 +2581,7 @@ _onRefresh =()=> {
                       }
                     }
                   })
-                }).catch((err)=>{
+                }).catch((err) => {
 
                 })
               })//end of 2nd resolve
@@ -2604,7 +2601,7 @@ _onRefresh =()=> {
     this.callForInitialFetch()
     setTimeout(() => {
       this.setState({
-        messageToDisplay : 'Please Check your Internet Connection or restart your app'
+        messageToDisplay: 'Please Check your Internet Connection or restart your app'
       })
     }, 15000);
   }
@@ -2694,22 +2691,22 @@ _onRefresh =()=> {
   }
 
   handleBackButton = () => {
-    if(this.state.searchActive){
-      this.setState({ searchActive : false})
-    }else{
-    Alert.alert(
-      'Exit App',
-      'Exiting the application?', [{
-        text: 'Cancel',
-        onPress: () => console.log('Cancel Pressed'),
-        style: 'cancel'
-      }, {
-        text: 'OK',
-        onPress: () => BackHandler.exitApp()
-      },], {
-      cancelable: false
-    }
-    )      
+    if (this.state.searchActive) {
+      this.setState({ searchActive: false })
+    } else {
+      Alert.alert(
+        'Exit App',
+        'Exiting the application?', [{
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+        }, {
+          text: 'OK',
+          onPress: () => BackHandler.exitApp()
+        },], {
+        cancelable: false
+      }
+      )
     }
 
     return true;
@@ -2797,7 +2794,7 @@ _onRefresh =()=> {
       useNativeDriver: false
     }).start();
     this.setState({
-      isModalOpen : true
+      isModalOpen: true
     })
   };
   handdlePress1 = () => {
@@ -2807,51 +2804,51 @@ _onRefresh =()=> {
       useNativeDriver: false
     }).start();
     //YASH
-    var sosSelectorReset = ["food","Emotional Support","other"]
+    var sosSelectorReset = ["food", "Emotional Support", "other"]
     var markersReset = this.state.markers
     this.setState({
       isMarkerClicked: false,
-      isModalOpen : false,
-      sosToDisplay : markersReset,
-      sosToDisplaySelector : sosSelectorReset,
-      foodTextColor : '#0290ea',
-      foodBgColor : '#c2dff0',
-      emTextColor : '#0290ea',
-      emBgColor : '#c2dff0',
-      othersTextColor : '#0290ea',
-      othersBgColor : '#c2dff0',
+      isModalOpen: false,
+      sosToDisplay: markersReset,
+      sosToDisplaySelector: sosSelectorReset,
+      foodTextColor: '#0290ea',
+      foodBgColor: '#c2dff0',
+      emTextColor: '#0290ea',
+      emBgColor: '#c2dff0',
+      othersTextColor: '#0290ea',
+      othersBgColor: '#c2dff0',
     })
   }
 
-  addSosMarkers = (emergency)=>{
+  addSosMarkers = (emergency) => {
     var currentSos = this.state.sosToDisplaySelector
     currentSos.push(emergency)
-    this.setState({ sosToDisplaySelector : currentSos })
+    this.setState({ sosToDisplaySelector: currentSos })
     console.log(this.state.sosToDisplaySelector)
     var currentSosToDisplay = []
-    this.state.markers.map( element =>{
-      if(this.state.sosToDisplaySelector.indexOf(element['category']) > -1){
+    this.state.markers.map(element => {
+      if (this.state.sosToDisplaySelector.indexOf(element['category']) > -1) {
         currentSosToDisplay.push(element)
       }
     })
-    this.setState({ sosToDisplay : currentSosToDisplay })
+    this.setState({ sosToDisplay: currentSosToDisplay })
     console.log(this.state.sosToDisplay.length)
 
   }
 
-  removeSosMarkers = (emergency)=>{
+  removeSosMarkers = (emergency) => {
     var currentSos = this.state.sosToDisplaySelector
     var i = currentSos.indexOf(emergency)
-    currentSos.splice(i,1)
-    this.setState({ sosToDisplaySelector : currentSos })
+    currentSos.splice(i, 1)
+    this.setState({ sosToDisplaySelector: currentSos })
     console.log(this.state.sosToDisplaySelector)
     var currentSosToDisplay = []
-    this.state.markers.map( element =>{
-      if(this.state.sosToDisplaySelector.indexOf(element['category']) > -1){
+    this.state.markers.map(element => {
+      if (this.state.sosToDisplaySelector.indexOf(element['category']) > -1) {
         currentSosToDisplay.push(element)
       }
     })
-    this.setState({ sosToDisplay : currentSosToDisplay })
+    this.setState({ sosToDisplay: currentSosToDisplay })
     console.log(this.state.sosToDisplay.length)
   }
 
@@ -2903,488 +2900,594 @@ _onRefresh =()=> {
           <View style={{ alignItems: 'center', justifyContent: 'center', height: hp("5%"), }}>
             {
               this.state.isModalOpen ?
-              <View style={{flexDirection : 'row', justifyContent:'center',alignSelf:'center',width:wp('80%'),borderColor:'#0091EA',borderRadius:8,borderWidth:1,marginTop:wp('3%'),height:hp('4%'),alignItems:'center'}}>
-                <TouchableOpacity style={{flex:1.3,borderWidth:1,height:hp('4%'),borderColor:'#0091EA',borderTopLeftRadius:8,borderBottomLeftRadius:8,justifyContent:'center',alignItems:'center',backgroundColor : this.state.foodBgColor}}
-                onPress={()=>{
-                  if(this.state.foodBgColor == "#c2dff0"){
-                    this.setState({
-                      foodBgColor : '#FFF',
-                      foodTextColor : 'grey'
-                    })
-                    this.removeSosMarkers('food')
-                  }else{
-                    this.setState({
-                      foodBgColor : '#c2dff0',
-                      foodTextColor : '#0290ea'
-                    })
-                    this.addSosMarkers('food')
-                  }
-                }}
-                >
-                  <Text style={{color : this.state.foodTextColor}}> Food </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{flex:2,borderWidth:1,height:hp('4%'),borderColor:'#0091EA',justifyContent:'center',alignItems:'center',backgroundColor : this.state.emBgColor}}
-                                onPress={()=>{
-                                  if(this.state.emBgColor == "#c2dff0"){                                    
-                                    this.setState({
-                                      emBgColor : '#FFF',
-                                      emTextColor : 'grey'
-                                    })
-                                    this.removeSosMarkers('Emotional Support')
-                                  }else{
-                                    this.setState({
-                                      emBgColor : '#c2dff0',
-                                      emTextColor : '#0290ea'
-                                    })
-                                    this.addSosMarkers('Emotional Support')
-                                  }
-                                }}
-                >
-                  <Text style={{color : this.state.emTextColor}}> Emotional Support </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={{flex:1.3,borderWidth:1,height:hp('4%'),borderColor:'#0091EA',borderTopRightRadius:8,borderBottomRightRadius:8,justifyContent:'center',alignItems:'center',backgroundColor : this.state.othersBgColor}}
-                                onPress={()=>{
-                                  if(this.state.othersBgColor == "#c2dff0"){
-                                    this.setState({
-                                      othersBgColor : '#FFF',
-                                      othersTextColor : 'grey'
-                                    })
-                                    this.removeSosMarkers('other')
-                                  }else{
-                                    this.setState({
-                                      othersBgColor : '#c2dff0',
-                                      othersTextColor : '#0290ea'
-                                    })
-                                    this.addSosMarkers('other')
-                                  }
-                                }}
-                >
-                  <Text style={{color : this.state.othersTextColor}}> Others </Text>
-                </TouchableOpacity>
-              </View>
-              
-              :
-              <Text style={{ fontSize: wp('4.5%') }}>ALERTS</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignSelf: 'center', width: wp('80%'), borderColor: '#0091EA', borderRadius: 8, borderWidth: 1, marginTop: wp('3%'), height: hp('4%'), alignItems: 'center' }}>
+                  <TouchableOpacity style={{ flex: 1.3, borderWidth: 1, height: hp('4%'), borderColor: '#0091EA', borderTopLeftRadius: 8, borderBottomLeftRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: this.state.foodBgColor }}
+                    onPress={() => {
+                      if (this.state.foodBgColor == "#c2dff0") {
+                        this.setState({
+                          foodBgColor: '#FFF',
+                          foodTextColor: 'grey'
+                        })
+                        this.removeSosMarkers('food')
+                      } else {
+                        this.setState({
+                          foodBgColor: '#c2dff0',
+                          foodTextColor: '#0290ea'
+                        })
+                        this.addSosMarkers('food')
+                      }
+                    }}
+                  >
+                    <Text style={{ color: this.state.foodTextColor }}> Food </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flex: 2, borderWidth: 1, height: hp('4%'), borderColor: '#0091EA', justifyContent: 'center', alignItems: 'center', backgroundColor: this.state.emBgColor }}
+                    onPress={() => {
+                      if (this.state.emBgColor == "#c2dff0") {
+                        this.setState({
+                          emBgColor: '#FFF',
+                          emTextColor: 'grey'
+                        })
+                        this.removeSosMarkers('Emotional Support')
+                      } else {
+                        this.setState({
+                          emBgColor: '#c2dff0',
+                          emTextColor: '#0290ea'
+                        })
+                        this.addSosMarkers('Emotional Support')
+                      }
+                    }}
+                  >
+                    <Text style={{ color: this.state.emTextColor }}> Emotional Support </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={{ flex: 1.3, borderWidth: 1, height: hp('4%'), borderColor: '#0091EA', borderTopRightRadius: 8, borderBottomRightRadius: 8, justifyContent: 'center', alignItems: 'center', backgroundColor: this.state.othersBgColor }}
+                    onPress={() => {
+                      if (this.state.othersBgColor == "#c2dff0") {
+                        this.setState({
+                          othersBgColor: '#FFF',
+                          othersTextColor: 'grey'
+                        })
+                        this.removeSosMarkers('other')
+                      } else {
+                        this.setState({
+                          othersBgColor: '#c2dff0',
+                          othersTextColor: '#0290ea'
+                        })
+                        this.addSosMarkers('other')
+                      }
+                    }}
+                  >
+                    <Text style={{ color: this.state.othersTextColor }}> Others </Text>
+                  </TouchableOpacity>
+                </View>
+
+                :
+                <Text style={{ fontSize: wp('4.5%') }}>ALERTS</Text>
             }
           </View>
           {/* <Icon name="filter" color="#0091EA" size={30} /> */}
         </View>
         {/* {console.log(this.state.typeShop.length, "in ciww ansfhsoajf")} */}
         {/* <ScrollView> */}
-        {this.state.found || this.state.org_found ? 
-        <FlatList
-          data={this.state.sosToDisplay}
-          ItemSeparatorComponent={this.ListViewItemSeparator}
-          refreshing={this.state.refreshing}
-          onRefresh={this._onRefresh}
-          renderItem={({ item }) => (
-          // console.log(item)
-            
-            <View>
-        
-              {
-                this.state.sosToDisplay.length == 0 ?
-                <Text style={{fontSize : 22,color:'grey',marginTop:hp('3%')}}> Please Select any option. </Text>
-                :
-                
-                this.state.isMarkerClicked ?
-                  
-                  // now checking if marker clicked phone number equals the sos phone number, then change Font color to blue, else render normally
+        {this.state.found || this.state.org_found ?
+          <FlatList
+            data={this.state.sosToDisplay}
+            ItemSeparatorComponent={this.ListViewItemSeparator}
+            refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh}
+            renderItem={({ item }) => (
+              // console.log(item)
 
-                  this.state.markerClickedid == item.phonenumber + '-' + item.timestamp ?
-                    // if part
-                    item.category == "Emotional Support" ? <View>
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-                        <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: wp('5%'), marginLeft: 10, fontWeight: 'bold' }}>
-                            Anonymous
-                          </Text>
-                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          Category: {item.category}
-                          </Text>
-                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.city}
-                          </Text>
-                        </View>
+              <View>
 
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
+                {
+                  this.state.sosToDisplay.length == 0 ?
+                    <Text style={{ fontSize: 22, color: 'grey', marginTop: hp('3%') }}> Please Select any option. </Text>
+                    :
+
+                    this.state.isMarkerClicked ?
+
+                      // now checking if marker clicked phone number equals the sos phone number, then change Font color to blue, else render normally
+
+                      this.state.markerClickedid == item.phonenumber + '-' + item.timestamp ?
+                        // if part
+                        item.category == "Emotional Support" ? <View>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
+                            <View style={{ width: wp("50%") }}>
+                              <Text style={{ fontSize: wp('5%'), marginLeft: 10, fontWeight: 'bold' }}>
+                                Anonymous
+                          </Text>
+                              <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                Category: {item.category}
+                              </Text>
+                              <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                {item.city}
+                              </Text>
+                            </View>
+
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                              {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
                         Category: {item.category}
                       </Text> */}
-                          {this.props.phonenumberuser == item.phonenumber ?
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
+                              {this.props.phonenumberuser == item.phonenumber ?
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                            <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
- 
-
-                            {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
-                            <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-
-                          </View>
-                            :
-                            <View style={{flexDirection:'row',alignItems:'center'}}>
-
-                          <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
-                              {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
-                              {this.state.BlockedCounter > 2 ? 
-                              <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                              :
-                              <TouchableOpacity onPress={() => {
-                                if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-                                  this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-                                }
-                                else {
-                                  this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-                                }
-                              }}>
-                              <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
-                              </TouchableOpacity>
-                            }
-                            </View>
-                          }
-                          {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("3%") }} /> */}
-                          <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+                                  <Icon name="directions" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
 
-                          {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
-                          {
-                            this.props.phonenumberuser == item.phonenumber ?
-                              <View style={{flexDirection:'row'}}>
-                                <TouchableOpacity onPress={() => {
+                                  {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
+                                  <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
-
-                                  Alert.alert(
-                                    "Are you sure?",
-                                    "If you delete a SOS, all related chats will also be deleted",
-                                    [
-                                      {
-                                        text: "Cancel",
-                                        onPress: () => console.log("Cancel Pressed"),
-                                        style: "cancel"
-                                      },
-                                      {
-                                        text: "Delete", onPress: () => {
-                                          this.deletekeys(item);
-                                          firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
-                                            name: item.name,
-                                            phonenumber: item.phonenumber,
-                                            description: item.description,
-                                            latitude: item.latitude,
-                                            longitude: item.longitude,
-                                            category: item.category,
-                                          }).then((data) => {
-                                            // console.log(data)
-                                            firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
-                                            this.setState({
-                                              rerender: !this.state.rerender
-                                            })
-                                            this.callForInitialFetch();
-                                          }).catch((err) => {
-                                            // console.log(err)
-                                          })
-                                        }
-                                      }
-                                    ],
-                                    { cancelable: true }
-                                  );
-
-                                }}>
-                                  <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
-                                </TouchableOpacity>
-                              </View>
-                              :
-                              <View >
-                                <Icon name="delete" size={30} color="grey" style={{marginRight:wp('2%')}} />
-                              </View>
-                          }
-                        </View>
-                      </View>
-                    </View> : <View>
-                        {/* changing to blue color of text of selected marker */}
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-                          <View style={{ width: wp("50%") }}>
-                            <Text style={{ fontSize: wp('5%'), marginLeft: 10, fontWeight: 'bold' }}>
-                              {item.name}
-                            </Text>
-                            <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                              Category: {item.category}
-                            </Text>
-                            <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.city}
-                          </Text>
-                          </View>
-
-                          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                            {this.props.phonenumberuser == item.phonenumber ?
-
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
-
-                          <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
-                          <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                          </TouchableOpacity>
-
-
-                          {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
-                          <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-
-                          <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-
-                        </View>
-                              :
-                              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-                          <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
-                          <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                          </TouchableOpacity>  
-
-                                <TouchableOpacity onPress={() => {
-                                  if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-                                    this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-                                  }
-                                  else {
-                                    this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-                                  }
-                                }}>
-                                  {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
-                                  <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
-
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {
-                                  Linking.openURL(`tel:${item.phonenumber}`)
-                                }}>
-                                  {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
-                                  <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
-
-                                </TouchableOpacity>
-                              </View>
-                            }
-
-                            {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
-                            {
-                              this.props.phonenumberuser == item.phonenumber ?
-                                <View>
-                                  <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
-                                    Alert.alert(
-                                      "Are you sure?",
-                                      "If you delete a SOS, all related chats will also be deleted",
-                                      [
-                                        {
-                                          text: "Cancel",
-                                          onPress: () => console.log("Cancel Pressed"),
-                                          style: "cancel"
-                                        },
-                                        {
-                                          text: "Delete", onPress: () => {
-                                            this.deletekeys(item);
-                                            firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
-                                              name: item.name,
-                                              phonenumber: item.phonenumber,
-                                              description: item.description,
-                                              latitude: item.latitude,
-                                              longitude: item.longitude,
-                                              category: item.category,
-                                            }).then((data) => {
-                                              // console.log(data)
-                                              firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
-                                              this.setState({
-                                                rerender: !this.state.rerender
-                                              })
-                                              this.callForInitialFetch();
-                                            }).catch((err) => {
-                                              // console.log(err)
-                                            })
-                                          }
-                                        }
-                                      ],
-                                      { cancelable: true }
-                                    );
-                                  }}>
-                                    <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
-                                  </TouchableOpacity>
                                 </View>
                                 :
-                                <View >
-                                  <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                  <Icon name="directions" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                  {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
+                                  {this.state.BlockedCounter > 2 ?
+                                    <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                    :
+                                    <TouchableOpacity onPress={() => {
+                                      if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                                        this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+                                      }
+                                      else {
+                                        this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+                                      }
+                                    }}>
+                                      <Icon name="chat-bubble-outline" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+                                  }
                                 </View>
-                            }
+                              }
+                              {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("3%") }} /> */}
+                              <Icon name="call" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+
+                              {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
+                              {
+                                this.props.phonenumberuser == item.phonenumber ?
+                                  <View style={{ flexDirection: 'row' }}>
+                                    <TouchableOpacity onPress={() => {
+
+
+                                      Alert.alert(
+                                        "Are you sure?",
+                                        "If you delete a SOS, all related chats will also be deleted",
+                                        [
+                                          {
+                                            text: "Cancel",
+                                            onPress: () => console.log("Cancel Pressed"),
+                                            style: "cancel"
+                                          },
+                                          {
+                                            text: "Delete", onPress: () => {
+                                              this.deletekeys(item);
+                                              firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
+                                                name: item.name,
+                                                phonenumber: item.phonenumber,
+                                                description: item.description,
+                                                latitude: item.latitude,
+                                                longitude: item.longitude,
+                                                category: item.category,
+                                              }).then((data) => {
+                                                // console.log(data)
+                                                firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
+                                                this.setState({
+                                                  rerender: !this.state.rerender
+                                                })
+                                                this.callForInitialFetch();
+                                              }).catch((err) => {
+                                                // console.log(err)
+                                              })
+                                            }
+                                          }
+                                        ],
+                                        { cancelable: true }
+                                      );
+
+                                    }}>
+                                      <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+                                  </View>
+                                  :
+                                  <View >
+                                    <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                  </View>
+                              }
+                            </View>
                           </View>
-                        </View>
-                      </View>
-                    :
-                    // else part of ismarkerclicked
-                    item.category == "Emotional Support" ? <View>
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-                        <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
-                            Anonymous
+                        </View> : <View>
+                            {/* changing to blue color of text of selected marker */}
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
+                              <View style={{ width: wp("50%") }}>
+                                <Text style={{ fontSize: wp('5%'), marginLeft: 10, fontWeight: 'bold' }}>
+                                  {item.name}
+                                </Text>
+                                <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                  Category: {item.category}
+                                </Text>
+                                <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                  {item.city}
+                                </Text>
+                              </View>
+
+                              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                {this.props.phonenumberuser == item.phonenumber ?
+
+                                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                    <TouchableOpacity onPress={() => { Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`) }}>
+                                      <Icon name="directions" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+
+
+                                    {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
+                                    <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+                                    <Icon name="call" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+                                  </View>
+                                  :
+                                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                    <TouchableOpacity onPress={() => { Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`) }}>
+                                      <Icon name="directions" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity onPress={() => {
+                                      if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                                        this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+                                      }
+                                      else {
+                                        this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+                                      }
+                                    }}>
+                                      {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
+                                      <Icon name="chat-bubble-outline" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {
+                                      Linking.openURL(`tel:${item.phonenumber}`)
+                                    }}>
+                                      {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
+                                      <Icon name="call" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+
+                                    </TouchableOpacity>
+                                  </View>
+                                }
+
+                                {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
+                                {
+                                  this.props.phonenumberuser == item.phonenumber ?
+                                    <View>
+                                      <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
+                                        Alert.alert(
+                                          "Are you sure?",
+                                          "If you delete a SOS, all related chats will also be deleted",
+                                          [
+                                            {
+                                              text: "Cancel",
+                                              onPress: () => console.log("Cancel Pressed"),
+                                              style: "cancel"
+                                            },
+                                            {
+                                              text: "Delete", onPress: () => {
+                                                this.deletekeys(item);
+                                                firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
+                                                  name: item.name,
+                                                  phonenumber: item.phonenumber,
+                                                  description: item.description,
+                                                  latitude: item.latitude,
+                                                  longitude: item.longitude,
+                                                  category: item.category,
+                                                }).then((data) => {
+                                                  // console.log(data)
+                                                  firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
+                                                  this.setState({
+                                                    rerender: !this.state.rerender
+                                                  })
+                                                  this.callForInitialFetch();
+                                                }).catch((err) => {
+                                                  // console.log(err)
+                                                })
+                                              }
+                                            }
+                                          ],
+                                          { cancelable: true }
+                                        );
+                                      }}>
+                                        <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                      </TouchableOpacity>
+                                    </View>
+                                    :
+                                    <View >
+                                      <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                    </View>
+                                }
+                              </View>
+                            </View>
+                          </View>
+                        :
+                        // else part of ismarkerclicked
+                        item.category == "Emotional Support" ? <View>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
+                            <View style={{ width: wp("50%") }}>
+                              <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
+                                Anonymous
                     </Text>
-                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          Category: {item.category}
-                          </Text>
-                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.city}
-                          </Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
+                              <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                Category: {item.category}
+                              </Text>
+                              <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                {item.city}
+                              </Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                              {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
                         Category: {item.category}
                       </Text> */}
-                          {this.props.phonenumberuser == item.phonenumber ?
+                              {this.props.phonenumberuser == item.phonenumber ?
 
-                          // abhi dala (for yash reference)
-                          <View style={{flexDirection:'row', alignItems:'center'}}>
-                          <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+                                // abhi dala (for yash reference)
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                  <Icon name="directions" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
-                            {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
-                            <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                            
-                          </View>  
+                                  {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
+                                  <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
-                            :
-                            <View style={{flexDirection:'row',alignItems:'center'}}>
+                                </View>
 
-                          <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
-                              {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
-                              {this.state.BlockedCounter > 2 ? 
-                              <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                              :
-                              <TouchableOpacity onPress={() => {
-                                if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-                                  this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-                                }
-                                else {
-                                  this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-                                }
-                              }}>
-                              <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
-                              </TouchableOpacity>
-                            }
-                            </View>
-                          }
-                          {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
-                          <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
+                                :
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-
-                          {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
-                          {
-                            this.props.phonenumberuser == item.phonenumber ?
-                              <View>
-                                <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
-
-                                  Alert.alert(
-                                    "Are you sure?",
-                                    "If you delete a SOS, all related chats will also be deleted",
-                                    [
-                                      {
-                                        text: "Cancel",
-                                        onPress: () => console.log("Cancel Pressed"),
-                                        style: "cancel"
-                                      },
-                                      {
-                                        text: "Delete", onPress: () => {
-
-                                          this.deletekeys(item);
-
-                                          firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
-                                            name: item.name,
-                                            phonenumber: item.phonenumber,
-                                            description: item.description,
-                                            latitude: item.latitude,
-                                            longitude: item.longitude,
-                                            category: item.category,
-                                            timestamp: item.timestamp
-                                          }).then((data) => {
-                                            // console.log(data)
-
-                                            firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
-                                            this.setState({
-                                              rerender: !this.state.rerender
-                                            })
-                                            this.callForInitialFetch();
-                                          }).catch((err) => {
-                                            // console.log(err)
-                                          })
-                                        }
+                                  <Icon name="directions" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                  {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
+                                  {this.state.BlockedCounter > 2 ?
+                                    <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                    :
+                                    <TouchableOpacity onPress={() => {
+                                      if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                                        this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
                                       }
-                                    ],
-                                    { cancelable: true }
-                                  );
-                                }}>
-                                  <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
-                                </TouchableOpacity>
-                              </View>
-                              :
-                              <View >
-                                <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
-                              </View>
-                          }
+                                      else {
+                                        this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+                                      }
+                                    }}>
+                                      <Icon name="chat-bubble-outline" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+                                  }
+                                </View>
+                              }
+                              {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
+                              <Icon name="call" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+
+                              {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
+                              {
+                                this.props.phonenumberuser == item.phonenumber ?
+                                  <View>
+                                    <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
+
+                                      Alert.alert(
+                                        "Are you sure?",
+                                        "If you delete a SOS, all related chats will also be deleted",
+                                        [
+                                          {
+                                            text: "Cancel",
+                                            onPress: () => console.log("Cancel Pressed"),
+                                            style: "cancel"
+                                          },
+                                          {
+                                            text: "Delete", onPress: () => {
+
+                                              this.deletekeys(item);
+
+                                              firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
+                                                name: item.name,
+                                                phonenumber: item.phonenumber,
+                                                description: item.description,
+                                                latitude: item.latitude,
+                                                longitude: item.longitude,
+                                                category: item.category,
+                                                timestamp: item.timestamp
+                                              }).then((data) => {
+                                                // console.log(data)
+
+                                                firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
+                                                this.setState({
+                                                  rerender: !this.state.rerender
+                                                })
+                                                this.callForInitialFetch();
+                                              }).catch((err) => {
+                                                // console.log(err)
+                                              })
+                                            }
+                                          }
+                                        ],
+                                        { cancelable: true }
+                                      );
+                                    }}>
+                                      <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+                                  </View>
+                                  :
+                                  <View >
+                                    <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                  </View>
+                              }
+                            </View>
+                          </View>
                         </View>
-                      </View>
-                    </View>
+
+                          :
+
+                          <View>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
+                              <View style={{ width: wp("50%") }}>
+                                <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
+                                  {item.name}
+                                </Text>
+                                <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                  Category: {item.category}
+                                </Text>
+                                <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                  {item.city}
+                                </Text>
+                              </View>
+                              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                {this.props.phonenumberuser == item.phonenumber ?
+                                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                    <TouchableOpacity onPress={() => { Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`) }}>
+                                      <Icon name="directions" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+
+
+                                    {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
+                                    <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+                                    <Icon name="call" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+                                  </View>
+                                  :
+                                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                    <TouchableOpacity onPress={() => { Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`) }}>
+                                      <Icon name="directions" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {
+                                      if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                                        this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+                                      }
+                                      else {
+                                        this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+                                      }
+                                    }}>
+                                      {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
+                                      <Icon name="chat-bubble-outline" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+
+                                    </TouchableOpacity>
+                                    <TouchableOpacity onPress={() => {
+                                      Linking.openURL(`tel:${item.phonenumber}`)
+                                    }}>
+                                      {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
+                                      <Icon name="call" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+
+                                    </TouchableOpacity>
+                                  </View>
+                                }
+
+                                {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
+                                {
+                                  this.props.phonenumberuser == item.phonenumber ?
+                                    <View>
+                                      <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
+                                        Alert.alert(
+                                          "Are you sure?",
+                                          "If you delete a SOS, all related chats will also be deleted",
+                                          [
+                                            {
+                                              text: "Cancel",
+                                              onPress: () => console.log("Cancel Pressed"),
+                                              style: "cancel"
+                                            },
+                                            {
+                                              text: "Delete", onPress: () => {
+                                                this.deletekeys(item);
+                                                firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
+                                                  name: item.name,
+                                                  phonenumber: item.phonenumber,
+                                                  description: item.description,
+                                                  latitude: item.latitude,
+                                                  longitude: item.longitude,
+                                                  category: item.category,
+                                                }).then((data) => {
+                                                  // console.log(data)
+                                                  firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
+                                                  this.setState({
+                                                    rerender: !this.state.rerender
+                                                  })
+                                                  this.callForInitialFetch();
+                                                }).catch((err) => {
+                                                  // console.log(err)
+                                                })
+                                              }
+                                            }
+                                          ],
+                                          { cancelable: true }
+                                        );
+                                      }}>
+                                        <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                      </TouchableOpacity>
+                                    </View>
+                                    :
+                                    <View >
+                                      <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                    </View>
+                                }
+                              </View>
+                            </View>
+                          </View>
 
                       :
 
-                      <View>
+                      item.category == "Emotional Support" ? <View>
                         <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
                           <View style={{ width: wp("50%") }}>
                             <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
-                              {item.name}
-                            </Text>
+                              Anonymous
+                    </Text>
                             <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
                               Category: {item.category}
                             </Text>
                             <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.city}
-                          </Text>
+                              {item.city}
+                            </Text>
                           </View>
                           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                            {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
+                        Category: {item.category}
+                      </Text> */}
                             {this.props.phonenumberuser == item.phonenumber ?
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
+                              // <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
+                              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                          <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
-                          <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                          </TouchableOpacity>
+                                <Icon name="directions" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
+                                <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
-                          {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("3%") }} /> */}
-                          <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-
-                          <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-
-                        </View>
+                              </View>
                               :
                               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                
-                                <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
-                                <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                                </TouchableOpacity>                                 
-                                <TouchableOpacity onPress={() => {
-                                  if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-                                    this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-                                  }
-                                  else {
-                                    this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-                                  }
-                                }}>
-                                  {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
-                                  <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
 
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => {
-                                  Linking.openURL(`tel:${item.phonenumber}`)
-                                }}>
-                                  {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
-                                  <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
-
-                                </TouchableOpacity>
+                                <Icon name="directions" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
+                                {this.state.BlockedCounter > 2 ?
+                                  <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                  :
+                                  <TouchableOpacity onPress={() => {
+                                    if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                                      this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
+                                    }
+                                    else {
+                                      this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+                                    }
+                                  }}>
+                                    <Icon name="chat-bubble-outline" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                  </TouchableOpacity>
+                                }
                               </View>
                             }
+                            {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
+                            <Icon name="call" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
 
                             {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
                             {
                               this.props.phonenumberuser == item.phonenumber ?
                                 <View>
                                   <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
+
                                     Alert.alert(
                                       "Are you sure?",
                                       "If you delete a SOS, all related chats will also be deleted",
@@ -3424,237 +3527,131 @@ _onRefresh =()=> {
                                   </TouchableOpacity>
                                 </View>
                                 :
-                                <View >
+                                <View>
                                   <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
                                 </View>
                             }
                           </View>
                         </View>
-                      </View>
-
-                  :
-
-                  item.category == "Emotional Support" ? <View>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-                      <View style={{ width: wp("50%") }}>
-                        <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
-                          Anonymous
-                    </Text>
-                        <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                        Category: {item.category}
-                        </Text>
-                        <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.city}
-                          </Text>
-                      </View>
-                      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                        {/* <Text style={{ fontSize: wp('3.5%'), marginRight: 10 }}>
-                        Category: {item.category}
-                      </Text> */}
-                        {this.props.phonenumberuser == item.phonenumber ?
-                          // <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} />
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
-
-                          <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
-
-                              <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                            
-                          </View>
-                          :
-                          <View style={{flexDirection:'row',alignItems:'center'}}>
-
-                          <Icon name="directions" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
-                              {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("3%") }} /> */}
-                              {this.state.BlockedCounter > 2 ? 
-                              <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}} />
-                              :
-                              <TouchableOpacity onPress={() => {
-                                if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-                                  this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-                                }
-                                else {
-                                  this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-                                }
-                              }}>
-                              <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}} />
-                              </TouchableOpacity>
-                            }
+                      </View> : <View>
+                          <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
+                            <View style={{ width: wp("50%") }}>
+                              <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
+                                {item.name}
+                              </Text>
+                              <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                Category: {item.category}
+                              </Text>
+                              <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
+                                {item.city}
+                              </Text>
                             </View>
-                        }
-                        {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
-                        <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                              {this.props.phonenumberuser == item.phonenumber ?
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
+                                  <TouchableOpacity onPress={() => { Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`) }}>
+                                    <Icon name="directions" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                  </TouchableOpacity>
 
-                        {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
-                        {
-                          this.props.phonenumberuser == item.phonenumber ?
-                            <View>
-                              <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
+                                  {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
+                                  <Icon name="chat-bubble-outline" size={30} color="grey" style={{ marginRight: wp('2%') }} />
 
-                                Alert.alert(
-                                  "Are you sure?",
-                                  "If you delete a SOS, all related chats will also be deleted",
-                                  [
-                                    {
-                                      text: "Cancel",
-                                      onPress: () => console.log("Cancel Pressed"),
-                                      style: "cancel"
-                                    },
-                                    {
-                                      text: "Delete", onPress: () => {
-                                        this.deletekeys(item);
-                                        firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
-                                          name: item.name,
-                                          phonenumber: item.phonenumber,
-                                          description: item.description,
-                                          latitude: item.latitude,
-                                          longitude: item.longitude,
-                                          category: item.category,
-                                        }).then((data) => {
-                                          // console.log(data)
-                                          firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
-                                          this.setState({
-                                            rerender: !this.state.rerender
-                                          })
-                                          this.callForInitialFetch();
-                                        }).catch((err) => {
-                                          // console.log(err)
-                                        })
-                                      }
+                                  {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
+                                  <Icon name="call" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+
+                                </View>
+                                :
+                                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+
+                                  <TouchableOpacity onPress={() => { Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`) }}>
+                                    <Icon name="directions" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                  </TouchableOpacity>
+
+                                  <TouchableOpacity onPress={() => {
+                                    if (this.props.phonenumberuser == null && this.props.nameuser == null) {
+                                      this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
                                     }
-                                  ],
-                                  { cancelable: true }
-                                );
-                              }}>
-                                <Icon name="delete" size={30} color="#0091EA" style={{marginRight:wp('2%')}} />
-                              </TouchableOpacity>
+                                    else {
+                                      this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
+                                    }
+                                  }}>
+                                    {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
+                                    <Icon name="chat-bubble-outline" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+
+                                  </TouchableOpacity>
+                                  <TouchableOpacity onPress={() => {
+                                    Linking.openURL(`tel:${item.phonenumber}`)
+                                  }}>
+                                    {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
+                                    <Icon name="call" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+
+                                  </TouchableOpacity>
+                                </View>
+                              }
+
+                              {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
+                              {
+                                this.props.phonenumberuser == item.phonenumber ?
+                                  <View>
+                                    <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
+                                      Alert.alert(
+                                        "Are you sure?",
+                                        "If you delete a SOS, all related chats will also be deleted",
+                                        [
+                                          {
+                                            text: "Cancel",
+                                            onPress: () => console.log("Cancel Pressed"),
+                                            style: "cancel"
+                                          },
+                                          {
+                                            text: "Delete", onPress: () => {
+                                              this.deletekeys(item);
+                                              firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
+                                                name: item.name,
+                                                phonenumber: item.phonenumber,
+                                                description: item.description,
+                                                latitude: item.latitude,
+                                                longitude: item.longitude,
+                                                category: item.category,
+                                              }).then((data) => {
+                                                // console.log(data)
+                                                firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
+                                                this.setState({
+                                                  rerender: !this.state.rerender
+                                                })
+                                                this.callForInitialFetch();
+                                              }).catch((err) => {
+                                                // console.log(err)
+                                              })
+                                            }
+                                          }
+                                        ],
+                                        { cancelable: true }
+                                      );
+                                    }}>
+                                      <Icon name="delete" size={30} color="#0091EA" style={{ marginRight: wp('2%') }} />
+                                    </TouchableOpacity>
+                                  </View>
+                                  :
+                                  <View>
+                                    <Icon name="delete" size={30} color="grey" style={{ marginRight: wp('2%') }} />
+                                  </View>
+                              }
                             </View>
-                            :
-                            <View>
-                              <Icon name="delete" size={30} color="grey" style={{marginRight:wp('2%')}} />
-                            </View>
-                        }
-                      </View>
-                    </View>
-                  </View> : <View>
-                      <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginTop: wp('3%'), alignItems: 'center' }}>
-                        <View style={{ width: wp("50%") }}>
-                          <Text style={{ fontSize: wp('5%'), marginLeft: 10 }}>
-                            {item.name}
-                          </Text>
-                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                            Category: {item.category}
-                          </Text>
-                          <Text style={{ fontSize: wp('3.5%'), marginLeft: 10 }}>
-                          {item.city}
-                          </Text>
+                          </View>
                         </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                          {this.props.phonenumberuser == item.phonenumber ?
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
 
-                          <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
-                          <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                          </TouchableOpacity>
-
-                              {/* <Image source={require('../assets/chatIconGrey.png')} style={{ marginRight: wp("4%") }} /> */}
-                              <Icon name="chat-bubble-outline" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
-
-                              {/* <Image source={require('../assets/ios-call-grey.png')} style={{ marginRight: wp("4%") }} /> */}
-                              <Icon name="call" size={30} color = "grey" style={{marginRight:wp('2%')}}/>
-
-                            </View>
-                            :
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-
-                          <TouchableOpacity onPress={()=>{Linking.openURL(`google.navigation:q=${item.latitude}+${item.longitude}`)}}>
-                          <Icon name="directions" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                          </TouchableOpacity>
-
-                              <TouchableOpacity onPress={() => {
-                                if (this.props.phonenumberuser == null && this.props.nameuser == null) {
-                                  this.props.navigation.navigate('WhoYouAre', { check: this.state.check })
-                                }
-                                else {
-                                  this.props.navigation.navigate('Chats', { name: item.name, phonenumber: item.phonenumber, description: item.description, category: item.category, putcolor: "blue", timestamp: item.timestamp })
-                                }
-                              }}>
-                                {/* <Image source={require('../assets/chatIcon.png')} style={{ marginRight: wp("4%") }} /> */}
-                                <Icon name="chat-bubble-outline" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-
-                              </TouchableOpacity>
-                              <TouchableOpacity onPress={() => {
-                                Linking.openURL(`tel:${item.phonenumber}`)
-                              }}>
-                                {/* <Image source={require('../assets/ios-call.png')} style={{ marginRight: wp("4%") }} /> */}
-                                <Icon name="call" size={30} color = "#0091EA" style={{marginRight:wp('2%')}}/>
-                                
-                              </TouchableOpacity>
-                            </View>
-                          }
-
-                          {/* ye check krra hai user ka phonenumber same hai list ke phone number se */}
-                          {
-                            this.props.phonenumberuser == item.phonenumber ?
-                              <View>
-                                <TouchableOpacity style={{ fontSize: wp('3.5%') }} onPress={() => {
-                                  Alert.alert(
-                                    "Are you sure?",
-                                    "If you delete a SOS, all related chats will also be deleted",
-                                    [
-                                      {
-                                        text: "Cancel",
-                                        onPress: () => console.log("Cancel Pressed"),
-                                        style: "cancel"
-                                      },
-                                      {
-                                        text: "Delete", onPress: () => {
-                                          this.deletekeys(item);
-                                          firebase.database().ref('sosDeleted/' + item.phonenumber + "," + item.timestamp + '/').set({
-                                            name: item.name,
-                                            phonenumber: item.phonenumber,
-                                            description: item.description,
-                                            latitude: item.latitude,
-                                            longitude: item.longitude,
-                                            category: item.category,
-                                          }).then((data) => {
-                                            // console.log(data)
-                                            firebase.database().ref("sos/" + this.props.phonenumberuser + "," + item.timestamp).remove()
-                                            this.setState({
-                                              rerender: !this.state.rerender
-                                            })
-                                            this.callForInitialFetch();
-                                          }).catch((err) => {
-                                            // console.log(err)
-                                          })
-                                        }
-                                      }
-                                    ],
-                                    { cancelable: true }
-                                  );
-                                }}>
-                                  <Icon name="delete" size={30} color="#0091EA" style={{marginRight:wp('2%')}} />
-                                </TouchableOpacity>
-                              </View>
-                              :
-                              <View>
-                                <Icon name="delete" size={30} color="grey" style={{marginRight:wp('2%')}} />
-                              </View>
-                          }
-                        </View>
-                      </View>
-                    </View>
-
-              }
+                }
 
 
-            </View>
+              </View>
 
-          )}
-          enableEmptySections={true}
-          style={{ margin: hp('1%') }}
-          keyExtractor={(item, index) => index}
-        /> : <View style={{ justifyContent: 'center', alignItems: 'center', height: hp("42.5%") }}>
+            )}
+            enableEmptySections={true}
+            style={{ margin: hp('1%') }}
+            keyExtractor={(item, index) => index}
+          /> : <View style={{ justifyContent: 'center', alignItems: 'center', height: hp("42.5%") }}>
             <Text style={{ color: 'grey', fontSize: wp('4.5%') }}>No alerts found!</Text>
           </View>}
 
@@ -3679,7 +3676,7 @@ _onRefresh =()=> {
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
                     {/* <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Near By Alerts</Text> */}
-                                        <Text style={{ fontSize: wp('3.5%') }}>Near By Alerts</Text>
+                    <Text style={{ fontSize: wp('3.5%') }}>Near By Alerts</Text>
 
                   </View>
 
@@ -3700,7 +3697,7 @@ _onRefresh =()=> {
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
                     {/* <Text style={{ color: "black", fontSize: wp('3.5%') }}>Near By Alerts</Text> */}
-                    <Text style={{fontSize: wp('3.5%') }}>Near By Alerts</Text>
+                    <Text style={{ fontSize: wp('3.5%') }}>Near By Alerts</Text>
 
                   </View>
                 </TouchableOpacity>
@@ -3723,7 +3720,7 @@ _onRefresh =()=> {
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%") }}>
 
                     {/* <Text style={{ color: '#0290ea', fontSize: wp('3.5%') }}>Organizational Alerts</Text> */}
-                    <Text style={{fontSize: wp('3.5%') }}>Organizational Alerts</Text>
+                    <Text style={{ fontSize: wp('3.5%') }}>Organizational Alerts</Text>
                   </View>
                 </TouchableOpacity>
                 :
@@ -3739,7 +3736,7 @@ _onRefresh =()=> {
                   <View style={{ justifyContent: 'center', alignItems: 'center', width: wp("50%"), height: hp("7.5%"), backgroundColor: '#eee' }}>
 
                     {/* <Text style={{ color: "black", fontSize: wp('3.5%') }}>Organizational Alerts</Text> */}
-                    <Text style={{fontSize: wp('3.5%') }}>Organizational Alerts</Text>
+                    <Text style={{ fontSize: wp('3.5%') }}>Organizational Alerts</Text>
 
                   </View>
                 </TouchableOpacity>}
@@ -3764,7 +3761,7 @@ _onRefresh =()=> {
     // console.log("Inside render", this.props.phonenumberuser)
     // Adding Keyboard Eventlistner
 
-    const sampleData = ["Lucknow","Tamil","Himachal"]
+    const sampleData = ["Lucknow", "Tamil", "Himachal"]
 
     const _keyboardDidShow = () => {
       console.log("keyboard up")
@@ -3773,131 +3770,131 @@ _onRefresh =()=> {
     // console.log("Aditya here", this.props.personData.name)
     // console.log("markerssss", this.state.markers);
 
-    if(this.state.searchActive){
-      return(
-      //   <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
-      //   <TouchableOpacity onPress={
-      //     () => {
-      //       this.props.navigation.toggleDrawer();
-      //     }
-      //   }>
-      //     <Image
-      //       source={require('../assets/ham.png')}
-      //       style={{ height: hp("3.5%"), width: hp("3.5%") }}
-      //     />
-      //   </TouchableOpacity>
+    if (this.state.searchActive) {
+      return (
+        //   <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
+        //   <TouchableOpacity onPress={
+        //     () => {
+        //       this.props.navigation.toggleDrawer();
+        //     }
+        //   }>
+        //     <Image
+        //       source={require('../assets/ham.png')}
+        //       style={{ height: hp("3.5%"), width: hp("3.5%") }}
+        //     />
+        //   </TouchableOpacity>
 
-      //   <View style={{ width: wp('4%') }}></View>
-      //   <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
-      //     <View style={{ width: wp('3%') }}></View>
+        //   <View style={{ width: wp('4%') }}></View>
+        //   <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
+        //     <View style={{ width: wp('3%') }}></View>
 
-      //     <TextInput style={{ width: wp('60%'), zIndex: 1 }}
-      //       placeholder="Search Location"
-      //       placeholderTextColor="#0290ea"
-      //       autoFocus={true}
-      //       value={this.state.search}
-      //       onChangeText={(text) => {
-      //         this.setState({ search: text })
-      //       }}
-      //     />                
+        //     <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+        //       placeholder="Search Location"
+        //       placeholderTextColor="#0290ea"
+        //       autoFocus={true}
+        //       value={this.state.search}
+        //       onChangeText={(text) => {
+        //         this.setState({ search: text })
+        //       }}
+        //     />                
 
-      //     <TouchableOpacity onPress={() => {
-      //       // console.log("search pressed")
-      //       var placeSearched = this.state.search
-      //       var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
-      //       // console.log(" Searched Pressed " + placeSearched)
-      //       fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
-      //         .then((response) => response.json())
-      //         .then((responseJson) => {
-      //           // console.log(JSON.stringify(responseJson.results[0].geometry.location))
-      //           this.setState({
-      //             latitude: responseJson.results[0].geometry.location.lat,
-      //             longitude: responseJson.results[0].geometry.location.lng,
-      //             isSearch: true
-      //           })
-      //         })
-      //     }}>
-      //       <Image
-      //         source={require('../assets/search.png')}
-      //       />
-      //     </TouchableOpacity>
-      //     <View style={{ width: wp('5%'), height: hp('3%') }}></View>
-      //     <TouchableOpacity onPress={() => {
-      //       Geolocation.getCurrentPosition(
-      //         (position) => {
-      //           // console.log(position)
-      //           this.setState({
-      //             latitude: position.coords.latitude,
-      //             longitude: position.coords.longitude
-      //           })
-      //         }, (error) => alert(error.message),
-      //         {
-      //           enableHighAccuracy: false,
-      //           timeout: 5000,
-      //           maximumAge: 10000
-      //         })
-      //     }}>
-      //       <Image source={require('../assets/location.png')}
-      //         style={{ height: hp('3%'), width: wp('4%') }} />
-      //     </TouchableOpacity>
-      //   </View>
-      // </View>
-      <View style={{flex:1}}>
-        <TouchableOpacity
-        onPress={()=>{
-          this.setState({ searchActive : false })
-        }}
-        >
-         <Icon name = "arrow-back" color="#0290ea" size={30} style={{marginTop:hp('2%'),marginLeft:wp('3%')}} />
-        </TouchableOpacity>
-      <GooglePlacesAutocomplete
-      placeholder='Search Location'
-      fetchDetails = {true}
-      autoFocus = {true}
-      onPress={(data, details = null) => {
-        // 'details' is provided when fetchDetails = true
-        // console.log(data, details);
-        console.log("details are" , details.geometry.location)
-        var location = details.geometry.location
-        this.setState({
-          latitude : location.lat,
-          longitude : location.lng,
-          searchActive : false
-        })        
-        console.log("data is" ,data)
-      }}
-      query={{
-        key: 'AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc',
-        language: 'en',
-      }}
-      styles={{
-        description:{
-          color:'#777'
-        },
+        //     <TouchableOpacity onPress={() => {
+        //       // console.log("search pressed")
+        //       var placeSearched = this.state.search
+        //       var placeSearched = placeSearched.replace(/ /g, '+') // replaces all spaces to + for api
+        //       // console.log(" Searched Pressed " + placeSearched)
+        //       fetch('https://maps.googleapis.com/maps/api/geocode/json?address=' + placeSearched + '&key=AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc')
+        //         .then((response) => response.json())
+        //         .then((responseJson) => {
+        //           // console.log(JSON.stringify(responseJson.results[0].geometry.location))
+        //           this.setState({
+        //             latitude: responseJson.results[0].geometry.location.lat,
+        //             longitude: responseJson.results[0].geometry.location.lng,
+        //             isSearch: true
+        //           })
+        //         })
+        //     }}>
+        //       <Image
+        //         source={require('../assets/search.png')}
+        //       />
+        //     </TouchableOpacity>
+        //     <View style={{ width: wp('5%'), height: hp('3%') }}></View>
+        //     <TouchableOpacity onPress={() => {
+        //       Geolocation.getCurrentPosition(
+        //         (position) => {
+        //           // console.log(position)
+        //           this.setState({
+        //             latitude: position.coords.latitude,
+        //             longitude: position.coords.longitude
+        //           })
+        //         }, (error) => alert(error.message),
+        //         {
+        //           enableHighAccuracy: false,
+        //           timeout: 5000,
+        //           maximumAge: 10000
+        //         })
+        //     }}>
+        //       <Image source={require('../assets/location.png')}
+        //         style={{ height: hp('3%'), width: wp('4%') }} />
+        //     </TouchableOpacity>
+        //   </View>
+        // </View>
+        <View style={{ flex: 1 }}>
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({ searchActive: false })
+            }}
+          >
+            <Icon name="arrow-back" color="#0290ea" size={30} style={{ marginTop: hp('2%'), marginLeft: wp('3%') }} />
+          </TouchableOpacity>
+          <GooglePlacesAutocomplete
+            placeholder='Search Location'
+            fetchDetails={true}
+            autoFocus={true}
+            onPress={(data, details = null) => {
+              // 'details' is provided when fetchDetails = true
+              // console.log(data, details);
+              console.log("details are", details.geometry.location)
+              var location = details.geometry.location
+              this.setState({
+                latitude: location.lat,
+                longitude: location.lng,
+                searchActive: false
+              })
+              console.log("data is", data)
+            }}
+            query={{
+              key: 'AIzaSyCIei5GV0BRU0hOd_IoqUSBVKEntmIkSxc',
+              language: 'en',
+            }}
+            styles={{
+              description: {
+                color: '#777'
+              },
 
-        textInputContainer: {
-          backgroundColor: 'rgba(0,0,0,0)',
-          borderTopWidth: 0,
-          borderBottomWidth: 0,
-          width:wp('90%'),
-          alignSelf:'center',
-          marginTop : hp('3%'),
-          color:'#777'
-        },
-        textInput: {
-          marginLeft: 0,
-          marginRight: 0,
-          height: 38,
-          color: '#777',
-          fontSize: 16,
-          placeholderTextColor : "#777"
-        },
-        predefinedPlacesDescription: {
-          color: '#777',
-        },
-      }}
-    />        
-      </View>
+              textInputContainer: {
+                backgroundColor: 'rgba(0,0,0,0)',
+                borderTopWidth: 0,
+                borderBottomWidth: 0,
+                width: wp('90%'),
+                alignSelf: 'center',
+                marginTop: hp('3%'),
+                color: '#777'
+              },
+              textInput: {
+                marginLeft: 0,
+                marginRight: 0,
+                height: 38,
+                color: '#777',
+                fontSize: 16,
+                placeholderTextColor: "#777"
+              },
+              predefinedPlacesDescription: {
+                color: '#777',
+              },
+            }}
+          />
+        </View>
 
 
       )
@@ -3910,14 +3907,14 @@ _onRefresh =()=> {
         outputRange: [-1 * height / 2, 0]
       })
 
-      const MarkerHeight = (height/2) - hp('9.7%')
-      const MarkerLeft = (width/2)-wp("3.7%")
-      
+      const MarkerHeight = (height / 2) - hp('9.7%')
+      const MarkerLeft = (width / 2) - wp("3.7%")
+
 
       return (
         <View style={{ flex: 1 }}>
           <KeyboardAvoidingView style={{ flex: 1 }}>
-            
+
             {/* Location Icon permanent */}
             <Icon name="location-on" size={30} style={{ zIndex: 10, top: MarkerHeight, left: MarkerLeft, position: 'absolute' }} color="#e85433" />
             <View style={{ position: 'absolute', top: -20, width: '90%', flexDirection: 'row', zIndex: 1, elevation: 10, marginTop: hp('8%'), alignSelf: 'center', alignItems: 'center' }}>
@@ -3935,22 +3932,22 @@ _onRefresh =()=> {
               <View style={{ width: wp('4%') }}></View>
               <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
                 <View style={{ width: wp('3%') }}></View>
-                <TouchableOpacity 
-                onPress={
-                  ()=>{
-                    this.setState({ searchActive : true })
+                <TouchableOpacity
+                  onPress={
+                    () => {
+                      this.setState({ searchActive: true })
+                    }
                   }
-                }
                 >
-                <TextInput style={{ width: wp('60%'), zIndex: 1 }}
-                  placeholder="Search Location ..."
-                  placeholderTextColor="#0290ea"
-                  value={this.state.search}
-                  editable = {false}
-                  onChangeText={(text) => {
-                    this.setState({ search: text })
-                  }}
-                />                  
+                  <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+                    placeholder="Search Location ..."
+                    placeholderTextColor="#0290ea"
+                    value={this.state.search}
+                    editable={false}
+                    onChangeText={(text) => {
+                      this.setState({ search: text })
+                    }}
+                  />
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => {
@@ -3968,7 +3965,7 @@ _onRefresh =()=> {
                   //       isSearch: true
                   //     })
                   //   })
-                  this.setState({ searchActive : true })
+                  this.setState({ searchActive: true })
                 }}>
                   <Image
                     source={require('../assets/search.png')}
@@ -4143,21 +4140,21 @@ _onRefresh =()=> {
             <View style={{ backgroundColor: 'white', width: '90%', flexDirection: 'row', alignItems: 'center', borderRadius: 10 }}>
               <View style={{ width: wp('3%') }}></View>
               <TouchableOpacity
-              onPress = {
-                ()=>{
-                  this.setState({ searchActive : true })
+                onPress={
+                  () => {
+                    this.setState({ searchActive: true })
+                  }
                 }
-              }
               >
-              <TextInput style={{ width: wp('60%'), zIndex: 1 }}
-                placeholder="Search Location"
-                placeholderTextColor="#0290ea"
-                editable = {false}
-                value={this.state.search}
-                onChangeText={(text) => {
-                  this.setState({ search: text })
-                }}
-              />                
+                <TextInput style={{ width: wp('60%'), zIndex: 1 }}
+                  placeholder="Search Location"
+                  placeholderTextColor="#0290ea"
+                  editable={false}
+                  value={this.state.search}
+                  onChangeText={(text) => {
+                    this.setState({ search: text })
+                  }}
+                />
               </TouchableOpacity>
 
               <TouchableOpacity onPress={() => {
@@ -4175,7 +4172,7 @@ _onRefresh =()=> {
                 //       isSearch: true
                 //     })
                 //   })
-                this.setState({ searchActive : true })
+                this.setState({ searchActive: true })
               }}>
                 <Image
                   source={require('../assets/search.png')}
@@ -4248,7 +4245,7 @@ _onRefresh =()=> {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <ActivityIndicator />
           {/* <Text>Please Wait</Text><Text>-or-</Text><Text>Check Your Internet Connection And Restart Your App Again</Text> */}
-          <Text> { this.state.messageToDisplay } </Text>
+          <Text> {this.state.messageToDisplay} </Text>
         </View>);
     }
   }
