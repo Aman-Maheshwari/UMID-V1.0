@@ -916,7 +916,40 @@ class AnonymousChat extends React.Component {
     return firebase.database.ServerValue.TIMESTAMP;
   }
   // send the message to the Backend
-  send = messages => {
+  // send = messages => {
+  //   if (this.state.isBlocked == true) {
+  //     alert("Chat is Blocked!")
+  //   } else {
+  //     for (let i = 0; i < messages.length; i++) {
+  //       const { text, user } = messages[i];
+  //       let ciphertext = this.encode('U2FsdGVkX1/Fn2uijfNNp61r1otCzb6VP1ss8rtsnSA=', text)
+  //       console.log("cipher text");
+  //       text = ciphertext
+  //       const message = {
+  //         text,
+  //         user,
+  //         timestamp: this.timestamp,
+  //       };
+  //       this.append(message);
+  //     }
+  //     console.log("anonymouschat = ", this.props.navigation.state.params.timestamp)
+  //     firebase.database().ref("ChatsUnderYou/Anonymous/" + this.props.phonenumberuser + "/" + this.props.navigation.state.params.phonenumber + "," + this.props.navigation.state.params.timestamp).update({
+  //       timestamp: firebase.database.ServerValue.TIMESTAMP,
+  //     })
+
+  //     console.log(this.state.counter++)
+  //     firebase.database().ref("ChatsUnderYou/Anonymous/" + this.props.navigation.state.params.phonenumber + "/" + this.props.phonenumberuser + "," + this.props.navigation.state.params.timestamp).update({
+  //       timestamp: firebase.database.ServerValue.TIMESTAMP,
+  //       counter: this.state.counter++,
+  //       softDelete: false,
+  //     })
+  //   }
+
+   
+  // };
+
+   // send the message to the Backend
+   send = messages => {
     if (this.state.isBlocked == true) {
       alert("Chat is Blocked!")
     } else {
@@ -943,8 +976,27 @@ class AnonymousChat extends React.Component {
         counter: this.state.counter++,
         softDelete: false,
       })
+      // calling api for notifications
+      console.log("CALLING NOTIFICATION API")
+      fetch('http://localhost:3000/chat/sendMessages/', {method:'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'secretkey' : 'UMID'
+      },
+      body: JSON.stringify({ messages : messages , phoneNumber : this.props.navigation.state.params.phonenumber })}).then(res => {
+        return res.json()
+      }).then(res =>{
+          console.log("send ",res)
+      }).catch((err)=>{
+
+        //note here you can get error so they should be handled properly
+        console.log(err);
+        
+      })
     }
   };
+
 
   append = message => this.ref.push(message);
 

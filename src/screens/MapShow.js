@@ -2230,8 +2230,7 @@ import { connect } from 'react-redux';
 import RNAndroidLocationEnabler from 'react-native-android-location-enabler';
 import Icon from "react-native-vector-icons/MaterialIcons"
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-
-// import messaging, { AuthorizationStatus } from '@react-native-firebase/messaging'
+import messaging, { AuthorizationStatus } from '@react-native-firebase/messaging'
 // import {firebase as fb , messaging} from 'react-native-firebase';
 import Animate from '../screenprev/Animate';
 
@@ -2282,14 +2281,14 @@ class MapShow extends React.Component {
     console.disableYellowBox = true //disabling warning blocks
    
    
-    // messaging().getToken().then((data) => {
-    //   console.log("data = ", data);
-    //   // console.log("data.json() = ",data.json());
-    // });
+    messaging().getToken().then((data) => {
+      console.log("data = ", data);
+      // console.log("data.json() = ",data.json());
+    });
 
-    // messaging().setBackgroundMessageHandler(async remoteMessage => {
-    //   console.log('Message handled in the background!', remoteMessage);
-    // });
+    messaging().setBackgroundMessageHandler(async remoteMessage => {
+      console.log('Message handled in the background!', remoteMessage);
+    });
 
     // async function requestUserPermission() {
     //   const authStatus = await messaging().requestPermission();
